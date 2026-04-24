@@ -1,0 +1,1216 @@
+{
+	"camera" : 
+	{
+		"center" : "50.80692 429.96524 -1.00000",
+		"eye" : "50.80692 429.96524 0.00000",
+		"up" : "0.00000 1.00000 0.00000"
+	},
+	"general" : 
+	{
+		"ambientcolor" : "0.30000 0.30000 0.30000",
+		"bloom" : 
+		{
+			"user" : "bloom",
+			"value" : true
+		},
+		"bloomhdrfeather" : 0.1,
+		"bloomhdriterations" : 8,
+		"bloomhdrscatter" : 1.619,
+		"bloomhdrstrength" : 2.0,
+		"bloomhdrthreshold" : 1.0,
+		"bloomstrength" : 0.25999999,
+		"bloomthreshold" : 0.0,
+		"bloomtint" : "1.00000 1.00000 1.00000",
+		"camerafade" : true,
+		"cameraparallax" : false,
+		"cameraparallaxamount" : 0.5,
+		"cameraparallaxdelay" : 0.1,
+		"cameraparallaxmouseinfluence" : 0.5,
+		"camerapreview" : true,
+		"camerashake" : 
+		{
+			"user" : "cameramovement",
+			"value" : true
+		},
+		"camerashakeamplitude" : 0.5,
+		"camerashakeroughness" : 1.0,
+		"camerashakespeed" : 0.51999998,
+		"clearcolor" : "0.00000 0.00000 0.00000",
+		"clearenabled" : true,
+		"farz" : 10000.0,
+		"fov" : 50.0,
+		"gravitydirection" : "0.00000 -1.00000 0.00000",
+		"gravitystrength" : 1.0,
+		"hdr" : false,
+		"nearz" : 0.0099999998,
+		"orthogonalprojection" : 
+		{
+			"height" : 2160,
+			"width" : 5120
+		},
+		"perspectiveoverridefov" : 90.0,
+		"skylightcolor" : "0.30000 0.30000 0.30000",
+		"winddirection" : "0.70700 0.70700 0.00000",
+		"windenabled" : false,
+		"windstrength" : 1.0,
+		"zoom" : 1.0
+	},
+	"objects" : 
+	[
+		{
+			"angles" : "0.00000 0.00000 0.39881",
+			"castshadow" : false,
+			"clampuvs" : true,
+			"color" : 
+			{
+				"user" : "bgtopcolor",
+				"value" : "1.00000 1.00000 1.00000"
+			},
+			"disablepropagation" : false,
+			"id" : 18,
+			"image" : "models/util/solidlayer.json",
+			"locktransforms" : true,
+			"name" : "#ffffff",
+			"origin" : "1957.85767 2626.42310 0.00000",
+			"scale" : "24.16039 12.97251 12.93754",
+			"size" : "256.00000 256.00000"
+		},
+		{
+			"angles" : "0.00000 0.00000 0.39881",
+			"castshadow" : false,
+			"clampuvs" : true,
+			"disablepropagation" : false,
+			"effects" : 
+			[
+				{
+					"file" : "effects/workshop/3082978660/enhanced_simple_audio_bars/effect.json",
+					"id" : 315,
+					"name" : "bars",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"BAR_STYLE" : 0
+							},
+							"constantshadervalues" : 
+							{
+								"Anti-alias blurring" : "0.02, 0.02",
+								"Anti-alias blurring " : "0.05, 0.00",
+								"Bar Color" : "0.08627450980392157 0.11372549019607843 0.12941176470588237",
+								"Bar Count" : 
+								{
+									"user" : "count",
+									"value" : 200
+								},
+								"Bar Spacing" : 
+								{
+									"user" : "spacing",
+									"value" : 0.5
+								},
+								"Lower/Upper Bar Bounds" : "0 0.12",
+								"Minimum Height (Will be multiplied by the bar width)" : 0.0,
+								"Radius" : 0.69999999,
+								"Volume Factor" : 1.0,
+								"ui_editor_properties_opacity" : 1.0
+							},
+							"id" : 316
+						}
+					],
+					"visible" : 
+					{
+						"user" : 
+						{
+							"condition" : "0",
+							"name" : "bars"
+						},
+						"value" : false
+					}
+				},
+				{
+					"file" : "effects/workshop/3082978660/enhanced_simple_audio_bars/effect.json",
+					"id" : 462,
+					"name" : "bars top",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"BAR_STYLE" : 0
+							},
+							"constantshadervalues" : 
+							{
+								"Anti-alias blurring" : "0.02, 0.02",
+								"Anti-alias blurring " : "0.05, 0.00",
+								"Bar Color" : "0.08627450980392157 0.11372549019607843 0.12941176470588237",
+								"Bar Count" : 
+								{
+									"user" : "count2",
+									"value" : 100
+								},
+								"Bar Spacing" : 
+								{
+									"user" : "spacing2",
+									"value" : 0.5
+								},
+								"Lower/Upper Bar Bounds" : "0 0.12",
+								"Minimum Height (Will be multiplied by the bar width)" : 0,
+								"Radius" : 0.69999999,
+								"Volume Factor" : 1,
+								"ui_editor_properties_opacity" : 1
+							},
+							"id" : 463
+						}
+					],
+					"visible" : 
+					{
+						"user" : 
+						{
+							"condition" : "2",
+							"name" : "bars"
+						},
+						"value" : false
+					}
+				},
+				{
+					"file" : "effects/workshop/3082978660/enhanced_simple_audio_bars/effect.json",
+					"id" : 343,
+					"name" : "bars smooth",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"ANTIALIAS" : 0,
+								"BAR_STYLE" : 2,
+								"RESOLUTION" : 16
+							},
+							"constantshadervalues" : 
+							{
+								"Anti-alias blurring " : "0.05, 0.00",
+								"Bar Color" : "0.08627450980392157 0.11372549019607843 0.12941176470588237",
+								"Bar Count" : 
+								{
+									"user" : "count",
+									"value" : 200
+								},
+								"Bar Spacing" : 
+								{
+									"user" : "spacing",
+									"value" : 0.5
+								},
+								"Lower/Upper Bar Bounds" : "0 0.12",
+								"Minimum Height (Will be multiplied by the bar width)" : 0,
+								"Radius" : 0.69999999,
+								"Volume Factor" : 1,
+								"ui_editor_properties_opacity" : 1
+							},
+							"id" : 0
+						}
+					],
+					"visible" : 
+					{
+						"user" : 
+						{
+							"condition" : "1",
+							"name" : "bars"
+						},
+						"value" : true
+					}
+				},
+				{
+					"file" : "effects/workshop/3082978660/enhanced_simple_audio_bars/effect.json",
+					"id" : 496,
+					"name" : "bars smooth top",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"ANTIALIAS" : 0,
+								"BAR_STYLE" : 2,
+								"RESOLUTION" : 16
+							},
+							"constantshadervalues" : 
+							{
+								"Anti-alias blurring " : "0.05, 0.00",
+								"Bar Color" : "0.08627450980392157 0.11372549019607843 0.12941176470588237",
+								"Bar Count" : 
+								{
+									"user" : "count",
+									"value" : 200
+								},
+								"Bar Spacing" : 
+								{
+									"user" : "spacing",
+									"value" : 0.5
+								},
+								"Lower/Upper Bar Bounds" : "0 0.12",
+								"Minimum Height (Will be multiplied by the bar width)" : 0,
+								"Radius" : 0.69999999,
+								"Volume Factor" : 1,
+								"ui_editor_properties_opacity" : 1
+							},
+							"id" : 497
+						}
+					],
+					"visible" : 
+					{
+						"user" : 
+						{
+							"condition" : "4",
+							"name" : "bars"
+						},
+						"value" : false
+					}
+				},
+				{
+					"file" : "effects/tint/effect.json",
+					"id" : 239,
+					"name" : "oledfriendly",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"BLENDMODE" : 29
+							},
+							"constantshadervalues" : 
+							{
+								"alpha" : 1,
+								"color" : "0 0 0"
+							},
+							"id" : 240
+						}
+					],
+					"visible" : 
+					{
+						"user" : "oledfriendly",
+						"value" : false
+					}
+				}
+			],
+			"id" : 312,
+			"image" : "models/util/composelayer.json",
+			"locktransforms" : true,
+			"name" : "bars",
+			"origin" : "1879.83777 2638.70557 0.00000",
+			"scale" : "1.57722 1.57722 1.57722",
+			"size" : "3840.00000 2160.00000"
+		},
+		{
+			"angles" : "0.00000 -0.00000 0.06942",
+			"castshadow" : false,
+			"clampuvs" : true,
+			"disablepropagation" : false,
+			"effects" : 
+			[
+				{
+					"file" : "effects/workshop/2798696916/sharpen_filter/effect.json",
+					"id" : 197,
+					"name" : "",
+					"passes" : 
+					[
+						{
+							"constantshadervalues" : 
+							{
+								"Radius" : 0.64999998,
+								"Strength" : 3.99
+							},
+							"id" : 198
+						}
+					],
+					"visible" : true
+				},
+				{
+					"file" : "effects/waterwaves/effect.json",
+					"id" : 202,
+					"name" : "",
+					"passes" : 
+					[
+						{
+							"constantshadervalues" : 
+							{
+								"direction" : -1.2796001,
+								"exponent" : 1,
+								"scale" : 8,
+								"speed" : 5,
+								"strength" : 0.1
+							},
+							"id" : 203,
+							"textures" : 
+							[
+								null,
+								"masks/waterwaves_mask_b48da4c5",
+								"masks/waterwaves_mask_f9f001ef"
+							]
+						}
+					],
+					"visible" : true
+				}
+			],
+			"id" : 192,
+			"image" : "models/flower top.json",
+			"locktransforms" : true,
+			"name" : "flower top",
+			"origin" : "2414.04102 1105.81006 0.00000",
+			"size" : "557.00000 422.00000",
+			"visible" : 
+			{
+				"user" : "flowers",
+				"value" : true
+			}
+		},
+		{
+			"angles" : "0.00000 -0.00000 0.05350",
+			"disablepropagation" : false,
+			"id" : 50,
+			"instanceoverride" : 
+			{
+				"colorn" : "0.08627 0.11373 0.12941",
+				"id" : 51,
+				"rate" : 0.72000003
+			},
+			"locktransforms" : true,
+			"name" : "Sakura (Black)",
+			"origin" : "2701.23730 1142.61609 0.00000",
+			"particle" : "particles/new_particle_system.json",
+			"solid" : true,
+			"visible" : 
+			{
+				"user" : "petalsblack",
+				"value" : true
+			}
+		},
+		{
+			"angles" : "0.00000 0.00000 0.39881",
+			"castshadow" : false,
+			"clampuvs" : true,
+			"color" : "0.08627 0.11373 0.12941",
+			"disablepropagation" : false,
+			"effects" : 
+			[
+				{
+					"file" : "effects/tint/effect.json",
+					"id" : 244,
+					"name" : "oledfriendly",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"BLENDMODE" : 29
+							},
+							"constantshadervalues" : 
+							{
+								"alpha" : 1,
+								"color" : "0 0 0"
+							},
+							"id" : 245
+						}
+					],
+					"visible" : 
+					{
+						"user" : "oledfriendly",
+						"value" : false
+					}
+				},
+				{
+					"file" : "effects/tint/effect.json",
+					"id" : 334,
+					"name" : "",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"BLENDMODE" : 0
+							},
+							"constantshadervalues" : 
+							{
+								"alpha" : 1.0,
+								"color" : 
+								{
+									"user" : "color",
+									"value" : "1.00000 0.00000 0.00000"
+								}
+							},
+							"id" : 335
+						}
+					],
+					"visible" : 
+					{
+						"user" : "bgbottom",
+						"value" : false
+					}
+				}
+			],
+			"id" : 13,
+			"image" : "models/util/solidlayer.json",
+			"locktransforms" : true,
+			"name" : "#161d21",
+			"origin" : "3248.12256 -432.66922 0.00000",
+			"scale" : "24.16039 12.97251 12.93754",
+			"size" : "256.00000 256.00000"
+		},
+		{
+			"angles" : "0.00000 0.00000 0.39881",
+			"castshadow" : false,
+			"clampuvs" : true,
+			"disablepropagation" : false,
+			"effects" : 
+			[
+				{
+					"file" : "effects/workshop/3082978660/enhanced_simple_audio_bars/effect.json",
+					"id" : 414,
+					"name" : "bars",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"BAR_STYLE" : 0
+							},
+							"constantshadervalues" : 
+							{
+								"Anti-alias blurring" : "0.02, 0.02",
+								"Anti-alias blurring " : "0.05, 0.00",
+								"Bar Color" : "1 1 1",
+								"Bar Count" : 
+								{
+									"user" : "count",
+									"value" : 200
+								},
+								"Bar Spacing" : 
+								{
+									"user" : "spacing",
+									"value" : 0.5
+								},
+								"Lower/Upper Bar Bounds" : "0 0.12",
+								"Minimum Height (Will be multiplied by the bar width)" : 0,
+								"Radius" : 0.69999999,
+								"Volume Factor" : 1.0,
+								"ui_editor_properties_opacity" : 1.0
+							},
+							"id" : 415
+						}
+					],
+					"visible" : 
+					{
+						"user" : 
+						{
+							"condition" : "0",
+							"name" : "bars"
+						},
+						"value" : false
+					}
+				},
+				{
+					"file" : "effects/workshop/3082978660/enhanced_simple_audio_bars/effect.json",
+					"id" : 487,
+					"name" : "bars bot",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"BAR_STYLE" : 0
+							},
+							"constantshadervalues" : 
+							{
+								"Anti-alias blurring" : "0.02, 0.02",
+								"Anti-alias blurring " : "0.05, 0.00",
+								"Bar Color" : "1 1 1",
+								"Bar Count" : 
+								{
+									"user" : "count3",
+									"value" : 100
+								},
+								"Bar Spacing" : 
+								{
+									"user" : "spacing3",
+									"value" : 0.5
+								},
+								"Lower/Upper Bar Bounds" : "0 0.12",
+								"Minimum Height (Will be multiplied by the bar width)" : 0,
+								"Radius" : 0.69999999,
+								"Volume Factor" : 1,
+								"ui_editor_properties_opacity" : 1
+							},
+							"id" : 488
+						}
+					],
+					"visible" : 
+					{
+						"user" : 
+						{
+							"condition" : "3",
+							"name" : "bars"
+						},
+						"value" : false
+					}
+				},
+				{
+					"file" : "effects/workshop/3082978660/enhanced_simple_audio_bars/effect.json",
+					"id" : 416,
+					"name" : "bars smooth",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"ANTIALIAS" : 0,
+								"BAR_STYLE" : 2
+							},
+							"constantshadervalues" : 
+							{
+								"Anti-alias blurring " : "0.05, 0.00",
+								"Bar Color" : "1 1 1",
+								"Bar Count" : 
+								{
+									"user" : "count",
+									"value" : 200
+								},
+								"Bar Spacing" : 
+								{
+									"user" : "spacing",
+									"value" : 0.5
+								},
+								"Lower/Upper Bar Bounds" : "0 0.12",
+								"Minimum Height (Will be multiplied by the bar width)" : 0,
+								"Radius" : 0.69999999,
+								"Volume Factor" : 1,
+								"angle" : 0.0,
+								"offset" : "2 0",
+								"scale" : "1 1",
+								"ui_editor_properties_opacity" : 1
+							},
+							"id" : 417
+						}
+					],
+					"visible" : 
+					{
+						"user" : 
+						{
+							"condition" : "1",
+							"name" : "bars"
+						},
+						"value" : true
+					}
+				},
+				{
+					"file" : "effects/workshop/3082978660/enhanced_simple_audio_bars/effect.json",
+					"id" : 490,
+					"name" : "bars smooth bot",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"ANTIALIAS" : 0,
+								"BAR_STYLE" : 2
+							},
+							"constantshadervalues" : 
+							{
+								"Anti-alias blurring " : "0.05, 0.00",
+								"Bar Color" : "1 1 1",
+								"Bar Count" : 
+								{
+									"user" : "count",
+									"value" : 200
+								},
+								"Bar Spacing" : 
+								{
+									"user" : "spacing",
+									"value" : 0.5
+								},
+								"Lower/Upper Bar Bounds" : "0 0.12",
+								"Minimum Height (Will be multiplied by the bar width)" : 0,
+								"Radius" : 0.69999999,
+								"Volume Factor" : 1,
+								"ui_editor_properties_opacity" : 1
+							},
+							"id" : 491
+						}
+					],
+					"visible" : 
+					{
+						"user" : 
+						{
+							"condition" : "5",
+							"name" : "bars"
+						},
+						"value" : false
+					}
+				}
+			],
+			"id" : 413,
+			"image" : "models/util/composelayer.json",
+			"locktransforms" : true,
+			"name" : "bars 2",
+			"origin" : "3229.72510 -486.54056 0.00000",
+			"scale" : "1.57722 -1.57722 1.57722",
+			"size" : "3840.00000 2160.00000"
+		},
+		{
+			"angles" : "0.00000 -0.00000 0.05246",
+			"castshadow" : false,
+			"clampuvs" : true,
+			"disablepropagation" : false,
+			"effects" : 
+			[
+				{
+					"file" : "effects/opacity/effect.json",
+					"id" : 80,
+					"name" : "",
+					"passes" : 
+					[
+						{
+							"constantshadervalues" : 
+							{
+								"alpha" : 1.0
+							},
+							"id" : 81,
+							"textures" : [ null, "masks/opacity_mask_c29ff57b" ]
+						}
+					],
+					"visible" : true
+				},
+				{
+					"file" : "effects/workshop/2798696916/sharpen_filter/effect.json",
+					"id" : 103,
+					"name" : "",
+					"passes" : 
+					[
+						{
+							"constantshadervalues" : 
+							{
+								"Radius" : 0.64999998,
+								"Strength" : 3.99
+							},
+							"id" : 104
+						}
+					],
+					"visible" : true
+				},
+				{
+					"file" : "effects/waterwaves/effect.json",
+					"id" : 113,
+					"name" : "",
+					"passes" : 
+					[
+						{
+							"constantshadervalues" : 
+							{
+								"direction" : 2.3275735,
+								"exponent" : 1.0,
+								"scale" : 8,
+								"speed" : 5.0,
+								"strength" : 0.1
+							},
+							"id" : 114,
+							"textures" : 
+							[
+								null,
+								"masks/waterwaves_mask_d5ec7197",
+								"masks/waterwaves_mask_7c692959"
+							]
+						}
+					],
+					"visible" : true
+				}
+			],
+			"id" : 78,
+			"image" : "models/flower bottom.json",
+			"locktransforms" : true,
+			"name" : "flower bottom",
+			"origin" : "2580.24512 1007.62799 0.00000",
+			"scale" : "0.98037 1.04293 1.00000",
+			"size" : "558.00000 415.00000",
+			"visible" : 
+			{
+				"user" : "flowers",
+				"value" : true
+			}
+		},
+		{
+			"angles" : "0.00000 -0.00000 -2.75379",
+			"disablepropagation" : false,
+			"id" : 62,
+			"locktransforms" : true,
+			"name" : "Sakura (White)",
+			"origin" : "2715.08569 515.73035 0.00000",
+			"particle" : "particles/new_particle_system_copy1.json",
+			"solid" : true,
+			"visible" : 
+			{
+				"user" : "petalswhite",
+				"value" : true
+			}
+		},
+		{
+			"alpha" : 0.0,
+			"castshadow" : false,
+			"clampuvs" : true,
+			"disablepropagation" : false,
+			"id" : 229,
+			"image" : "models/util/solidlayer.json",
+			"locktransforms" : true,
+			"name" : "puppet1",
+			"origin" : 
+			{
+				"script" : "'use strict';\n\n// Checkbox for toggling drag mode in the editor\nexport var scriptProperties = createScriptProperties()\n\t.addCheckbox({\n\t\tname: 'enableDrag',\n\t\tlabel: 'Enable Drag',\n\t\tvalue: true\n\t})\n\t.finish();\n\nlet isDragging = false;\nlet dragOffset;\n\n// Called when the mouse button is pressed on the layer\n// @param {CursorEvent} event\nexport function cursorDown(event) {\n\tif (!scriptProperties.enableDrag) return;\n\tisDragging = true;\n\tdragOffset = thisLayer.origin.subtract(event.worldPosition);\n}\n\n// Called when the mouse button is released on the layer\n// @param {CursorEvent} event\nexport function cursorUp(event) {\n\tisDragging = false;\n}\n\n// Called when the mouse moves while hovering over the layer\n// @param {CursorEvent} event\nexport function cursorMove(event) {\n\tif (!scriptProperties.enableDrag || !isDragging) return;\n\tthisLayer.origin = event.worldPosition.add(dragOffset);\n}\n",
+				"scriptproperties" : 
+				{
+					"enableDrag" : 
+					{
+						"user" : "dragdrop",
+						"value" : true
+					}
+				},
+				"value" : "2540.05176 680.18201 0.00000"
+			},
+			"scale" : "3.07434 1.11713 1.00000",
+			"size" : "256.00000 256.00000"
+		},
+		{
+			"anchor" : "none",
+			"angles" : "0.00000 -0.00000 0.00000",
+			"backgroundbrightness" : 1.0,
+			"backgroundcolor" : "0.00000 0.00000 0.00000",
+			"blockalign" : false,
+			"castshadow" : false,
+			"clampuvs" : true,
+			"colorBlendMode" : 25,
+			"depthtest" : "enabled",
+			"disablepropagation" : false,
+			"font" : "fonts/Gogh-ExtraBold.otf",
+			"horizontalalign" : "center",
+			"id" : 25,
+			"limitrows" : false,
+			"limituseellipsis" : false,
+			"limitwidth" : false,
+			"locktransforms" : true,
+			"maxrows" : 1,
+			"maxwidth" : 500.0,
+			"name" : "Death",
+			"opaquebackground" : false,
+			"origin" : "6.48859 -59.09204 0.00000",
+			"padding" : 32,
+			"parent" : 229,
+			"pointsize" : 23.0,
+			"scale" : "0.32527 0.89515 1.00000",
+			"size" : "718.00000 196.00000",
+			"text" : "D    E    A    T    H",
+			"verticalalign" : "center",
+			"visible" : 
+			{
+				"user" : "death1",
+				"value" : true
+			}
+		},
+		{
+			"anchor" : "none",
+			"angles" : "0.00000 -0.00000 0.00000",
+			"backgroundbrightness" : 1.0,
+			"backgroundcolor" : "0.00000 0.00000 0.00000",
+			"blockalign" : false,
+			"castshadow" : false,
+			"clampuvs" : true,
+			"colorBlendMode" : 25,
+			"depthtest" : "enabled",
+			"disablepropagation" : false,
+			"font" : "fonts/Gogh-ExtraBold.otf",
+			"horizontalalign" : "center",
+			"id" : 46,
+			"limitrows" : false,
+			"limituseellipsis" : false,
+			"limitwidth" : false,
+			"locktransforms" : true,
+			"maxrows" : 1,
+			"maxwidth" : 500.0,
+			"name" : "死",
+			"opaquebackground" : false,
+			"origin" : "6.48859 93.00671 0.00000",
+			"padding" : 32,
+			"parent" : 229,
+			"pointsize" : 23.0,
+			"scale" : "0.32527 0.89515 1.00000",
+			"size" : "160.00000 196.00000",
+			"text" : "死",
+			"verticalalign" : "center",
+			"visible" : 
+			{
+				"user" : "death",
+				"value" : true
+			}
+		},
+		{
+			"alpha" : 0.0,
+			"castshadow" : false,
+			"clampuvs" : true,
+			"disablepropagation" : false,
+			"id" : 120,
+			"image" : "models/util/solidlayer.json",
+			"locktransforms" : true,
+			"name" : "puppet2",
+			"origin" : 
+			{
+				"script" : "'use strict';\n\n// Checkbox for toggling drag mode in the editor\nexport var scriptProperties = createScriptProperties()\n\t.addCheckbox({\n\t\tname: 'enableDrag',\n\t\tlabel: 'Enable Drag',\n\t\tvalue: true\n\t})\n\t.finish();\n\nlet isDragging = false;\nlet dragOffset;\n\n// Called when the mouse button is pressed on the layer\n// @param {CursorEvent} event\nexport function cursorDown(event) {\n\tif (!scriptProperties.enableDrag) return;\n\tisDragging = true;\n\tdragOffset = thisLayer.origin.subtract(event.worldPosition);\n}\n\n// Called when the mouse button is released on the layer\n// @param {CursorEvent} event\nexport function cursorUp(event) {\n\tisDragging = false;\n}\n\n// Called when the mouse moves while hovering over the layer\n// @param {CursorEvent} event\nexport function cursorMove(event) {\n\tif (!scriptProperties.enableDrag || !isDragging) return;\n\tthisLayer.origin = event.worldPosition.add(dragOffset);\n}\n",
+				"scriptproperties" : 
+				{
+					"enableDrag" : 
+					{
+						"user" : "dragdrop",
+						"value" : true
+					}
+				},
+				"value" : "2564.63330 1649.16162 0.00000"
+			},
+			"scale" : "2.10764 1.13456 1.00000",
+			"size" : "256.00000 256.00000"
+		},
+		{
+			"anchor" : "none",
+			"angles" : "0.00000 -0.00000 0.00000",
+			"backgroundbrightness" : 1.0,
+			"backgroundcolor" : "0.00000 0.00000 0.00000",
+			"blockalign" : false,
+			"castshadow" : false,
+			"clampuvs" : true,
+			"color" : "0.08627 0.11373 0.12941",
+			"colorBlendMode" : 23,
+			"depthtest" : "enabled",
+			"disablepropagation" : false,
+			"effects" : 
+			[
+				{
+					"file" : "effects/tint/effect.json",
+					"id" : 119,
+					"name" : "oledfriendly",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"BLENDMODE" : 29
+							},
+							"constantshadervalues" : 
+							{
+								"alpha" : 1,
+								"color" : "0 0 0"
+							},
+							"id" : 121
+						}
+					],
+					"visible" : 
+					{
+						"user" : "oledfriendly",
+						"value" : false
+					}
+				}
+			],
+			"font" : "fonts/Gogh-ExtraBold.otf",
+			"horizontalalign" : "center",
+			"id" : 40,
+			"limitrows" : false,
+			"limituseellipsis" : false,
+			"limitwidth" : false,
+			"locktransforms" : true,
+			"maxrows" : 1,
+			"maxwidth" : 500.0,
+			"name" : "Life",
+			"opaquebackground" : false,
+			"origin" : "-2.19836 -62.67761 0.00000",
+			"padding" : 32,
+			"parent" : 120,
+			"pointsize" : 23.0,
+			"scale" : "0.47446 0.88140 1.00000",
+			"size" : "508.00000 196.00000",
+			"text" : "L    I    F    E",
+			"verticalalign" : "center",
+			"visible" : 
+			{
+				"user" : "life",
+				"value" : true
+			}
+		},
+		{
+			"anchor" : "none",
+			"angles" : "0.00000 -0.00000 0.00000",
+			"backgroundbrightness" : 1.0,
+			"backgroundcolor" : "0.00000 0.00000 0.00000",
+			"blockalign" : false,
+			"castshadow" : false,
+			"clampuvs" : true,
+			"color" : "0.08627 0.11373 0.12941",
+			"colorBlendMode" : 23,
+			"depthtest" : "enabled",
+			"disablepropagation" : false,
+			"effects" : 
+			[
+				{
+					"file" : "effects/tint/effect.json",
+					"id" : 222,
+					"name" : "oledfriendly",
+					"passes" : 
+					[
+						{
+							"combos" : 
+							{
+								"BLENDMODE" : 29
+							},
+							"constantshadervalues" : 
+							{
+								"alpha" : 1,
+								"color" : "0 0 0"
+							},
+							"id" : 223
+						}
+					],
+					"visible" : 
+					{
+						"user" : "oledfriendly",
+						"value" : false
+					}
+				}
+			],
+			"font" : "fonts/Gogh-ExtraBold.otf",
+			"horizontalalign" : "center",
+			"id" : 44,
+			"limitrows" : false,
+			"limituseellipsis" : false,
+			"limitwidth" : false,
+			"locktransforms" : true,
+			"maxrows" : 1,
+			"maxwidth" : 500.0,
+			"name" : "生",
+			"opaquebackground" : false,
+			"origin" : "-2.19836 84.61731 0.00000",
+			"padding" : 32,
+			"parent" : 120,
+			"pointsize" : 23.0,
+			"scale" : "0.47446 0.88140 1.00000",
+			"size" : "159.00000 196.00000",
+			"text" : "生",
+			"verticalalign" : "center",
+			"visible" : 
+			{
+				"user" : "newproperty",
+				"value" : true
+			}
+		},
+		{
+			"alpha" : 0.0,
+			"castshadow" : false,
+			"clampuvs" : true,
+			"disablepropagation" : false,
+			"id" : 158,
+			"image" : "models/util/solidlayer.json",
+			"locktransforms" : true,
+			"name" : "Solid",
+			"origin" : 
+			{
+				"script" : "'use strict';\n\n// Checkbox for toggling drag mode in the editor\nexport var scriptProperties = createScriptProperties()\n\t.addCheckbox({\n\t\tname: 'enableDrag',\n\t\tlabel: 'Enable Drag',\n\t\tvalue: true\n\t})\n\t.finish();\n\nlet isDragging = false;\nlet dragOffset;\n\n// Called when the mouse button is pressed on the layer\n// @param {CursorEvent} event\nexport function cursorDown(event) {\n\tif (!scriptProperties.enableDrag) return;\n\tisDragging = true;\n\tdragOffset = thisLayer.origin.subtract(event.worldPosition);\n}\n\n// Called when the mouse button is released on the layer\n// @param {CursorEvent} event\nexport function cursorUp(event) {\n\tisDragging = false;\n}\n\n// Called when the mouse moves while hovering over the layer\n// @param {CursorEvent} event\nexport function cursorMove(event) {\n\tif (!scriptProperties.enableDrag || !isDragging) return;\n\tthisLayer.origin = event.worldPosition.add(dragOffset);\n}\n",
+				"scriptproperties" : 
+				{
+					"enableDrag" : 
+					{
+						"user" : "draganddrop2",
+						"value" : true
+					}
+				},
+				"value" : "2560.00000 1080.00000 0.00000"
+			},
+			"scale" : "1.00000 1.49290 1.00000",
+			"size" : "256.00000 256.00000"
+		},
+		{
+			"anchor" : "none",
+			"angles" : "0.00000 -0.00000 0.00000",
+			"backgroundbrightness" : 1.0,
+			"backgroundcolor" : "0.00000 0.00000 0.00000",
+			"blockalign" : false,
+			"castshadow" : false,
+			"clampuvs" : true,
+			"colorBlendMode" : 25,
+			"depthtest" : "enabled",
+			"disablepropagation" : false,
+			"font" : "fonts/workshop/3173409941/GoogleSans-Medium.otf",
+			"horizontalalign" : "center",
+			"id" : 123,
+			"limitrows" : false,
+			"limituseellipsis" : false,
+			"limitwidth" : false,
+			"locktransforms" : true,
+			"maxrows" : 1,
+			"maxwidth" : 500.0,
+			"name" : "Hour 1",
+			"opaquebackground" : false,
+			"origin" : "-60.99951 82.66217 0.00000",
+			"padding" : 32,
+			"parent" : 158,
+			"pointsize" : 46.0,
+			"scale" : "1.00000 0.66984 1.00000",
+			"size" : "142.00000 304.00000",
+			"text" : 
+			{
+				"script" : "'use strict';\n// Please note: Do not remove this line or asset references may break.\nexport let __workshopId = '3173409941';\n// Please note: Do not remove this line or asset references may break.\n\nexport var scriptProperties = createScriptProperties()\n\t// Whether you want a 24h or 12h style format\n\t.addCheckbox({\n\t\tname: 'use24hFormat',\n\t\tlabel: 'ui_editor_properties_use_24h_format',\n\t\tvalue: true\n\t})\n\t.finish()\n/**\n * @param {String} value (for property 'text')\n */\nexport function update(hours) {\n\tlet time = new Date();\n\tvar hours = time.getHours();\n\tif (!scriptProperties.use24hFormat) {\n\t\thours %= 12;\n\t\tif (hours == 0) {\n\t\t\thours = 12;\n\t\t}\n\t}\n\thours = Math.floor(hours / 10);\n\treturn hours;\n}\n",
+				"scriptproperties" : 
+				{
+					"use24hFormat" : 
+					{
+						"user" : "use24hformat",
+						"value" : true
+					}
+				},
+				"value" : "1"
+			},
+			"verticalalign" : "center",
+			"visible" : 
+			{
+				"user" : "clock",
+				"value" : false
+			}
+		},
+		{
+			"anchor" : "none",
+			"angles" : "0.00000 -0.00000 0.00000",
+			"backgroundbrightness" : 1.0,
+			"backgroundcolor" : "0.00000 0.00000 0.00000",
+			"blockalign" : false,
+			"castshadow" : false,
+			"clampuvs" : true,
+			"colorBlendMode" : 25,
+			"depthtest" : "enabled",
+			"disablepropagation" : false,
+			"font" : "fonts/workshop/3173409941/GoogleSans-Medium.otf",
+			"horizontalalign" : "center",
+			"id" : 124,
+			"limitrows" : false,
+			"limituseellipsis" : false,
+			"limitwidth" : false,
+			"locktransforms" : true,
+			"maxrows" : 1,
+			"maxwidth" : 500.0,
+			"name" : "Hour 2",
+			"opaquebackground" : false,
+			"origin" : "112.00781 0.00000 0.00000",
+			"padding" : 32,
+			"parent" : 123,
+			"pointsize" : 46.0,
+			"size" : "190.00000 304.00000",
+			"text" : 
+			{
+				"script" : "'use strict';\n// Please note: Do not remove this line or asset references may break.\nexport let __workshopId = '3173409941';\n// Please note: Do not remove this line or asset references may break.\n\nexport var scriptProperties = createScriptProperties()\n\t// Whether you want a 24h or 12h style format\n\t.addCheckbox({\n\t\tname: 'use24hFormat',\n\t\tlabel: 'ui_editor_properties_use_24h_format',\n\t\tvalue: true\n\t})\n\t.finish();\n\n/**\n * @param {String} value (for property 'text')\n */\nexport function update(hours) {\n\tlet time = new Date();\n\tvar hours = time.getHours();\n\tif (!scriptProperties.use24hFormat) {\n\t\thours %= 12;\n\t\tif (hours == 0) {\n\t\t\thours = 12;\n\t\t}\n\t}\n\tif(hours >= 10) {\n\t\thours = hours % 10;\n\t}\n\treturn hours;\n}\n",
+				"scriptproperties" : 
+				{
+					"use24hFormat" : 
+					{
+						"user" : "use24hformat",
+						"value" : true
+					}
+				},
+				"value" : "0"
+			},
+			"verticalalign" : "center",
+			"visible" : 
+			{
+				"user" : "showclock",
+				"value" : true
+			}
+		},
+		{
+			"anchor" : "none",
+			"angles" : "0.00000 -0.00000 0.00000",
+			"backgroundbrightness" : 1.0,
+			"backgroundcolor" : "0.00000 0.00000 0.00000",
+			"blockalign" : false,
+			"castshadow" : false,
+			"clampuvs" : true,
+			"colorBlendMode" : 25,
+			"depthtest" : "enabled",
+			"disablepropagation" : false,
+			"font" : "fonts/workshop/3173409941/GoogleSans-Medium.otf",
+			"horizontalalign" : "center",
+			"id" : 125,
+			"limitrows" : false,
+			"limituseellipsis" : false,
+			"limitwidth" : false,
+			"locktransforms" : true,
+			"maxrows" : 1,
+			"maxwidth" : 500.0,
+			"name" : "Minute 1",
+			"opaquebackground" : false,
+			"origin" : "10.71582 -193.18445 0.00000",
+			"padding" : 32,
+			"parent" : 123,
+			"pointsize" : 46.0,
+			"size" : "190.00000 304.00000",
+			"text" : 
+			{
+				"script" : "'use strict';\n// Please note: Do not remove this line or asset references may break.\nexport let __workshopId = '3173409941';\n// Please note: Do not remove this line or asset references may break.\n\n/**\n * @param {String} value (for property 'text')\n */\nexport function update(minute) {\n\tlet time = new Date();\n\tvar minute = time.getMinutes();\n\tif(minute > 0) {\n\t\tminute = Math.floor(minute / 10);\n\t}\n\treturn minute;\n}\n",
+				"value" : "0"
+			},
+			"verticalalign" : "center",
+			"visible" : 
+			{
+				"user" : "showclock",
+				"value" : true
+			}
+		},
+		{
+			"anchor" : "none",
+			"angles" : "0.00000 -0.00000 0.00000",
+			"backgroundbrightness" : 1.0,
+			"backgroundcolor" : "0.00000 0.00000 0.00000",
+			"blockalign" : false,
+			"castshadow" : false,
+			"clampuvs" : true,
+			"colorBlendMode" : 25,
+			"depthtest" : "enabled",
+			"disablepropagation" : false,
+			"font" : "fonts/workshop/3173409941/GoogleSans-Medium.otf",
+			"horizontalalign" : "center",
+			"id" : 126,
+			"limitrows" : false,
+			"limituseellipsis" : false,
+			"limitwidth" : false,
+			"locktransforms" : true,
+			"maxrows" : 1,
+			"maxwidth" : 500.0,
+			"name" : "Minute 2",
+			"opaquebackground" : false,
+			"origin" : "115.31934 0.00000 0.00000",
+			"padding" : 32,
+			"parent" : 125,
+			"pointsize" : 46.0,
+			"size" : "142.00000 304.00000",
+			"text" : 
+			{
+				"script" : "'use strict';\n// Please note: Do not remove this line or asset references may break.\nexport let __workshopId = '3173409941';\n// Please note: Do not remove this line or asset references may break.\n\n/**\n * @param {String} value (for property 'text')\n */\nexport function update(minute) {\n\tlet time = new Date();\n\tvar minute = time.getMinutes();\n\tif(minute >= 10) {\n\t\tminute = minute % 10;\n\t} \n\treturn minute;\n}\n",
+				"value" : "1"
+			},
+			"verticalalign" : "center"
+		},
+		{
+			"disablepropagation" : false,
+			"id" : 189,
+			"locktransforms" : true,
+			"maxtime" : 5.0,
+			"mintime" : 1.0,
+			"muteineditor" : true,
+			"name" : "Dark Souls III OST - Epilogue.mp3",
+			"playbackmode" : "loop",
+			"solid" : true,
+			"sound" : [ "sounds/Dark Souls III OST - Epilogue.mp3" ],
+			"startsilent" : false,
+			"volume" : 
+			{
+				"user" : "epilogue",
+				"value" : 0.5
+			}
+		}
+	],
+	"version" : 5
+}
