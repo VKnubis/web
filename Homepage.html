@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Windows XP Home</title>
+  <style>
+    :root {
+      --xp-blue-1: #4ea0ff;
+      --xp-blue-2: #1a6ce0;
+      --xp-blue-3: #0b4fb5;
+      --xp-blue-4: #0b2f7b;
+      --xp-line: #7ea8da;
+      --xp-text: #163a74;
+      --xp-muted: #4a6897;
+      --xp-gold-1: #ffda6c;
+      --xp-gold-2: #e39a13;
+      --xp-green-1: #58c75a;
+      --xp-green-2: #27812c;
+      --xp-shadow: 0 24px 40px rgba(8, 32, 77, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: Tahoma, "Segoe UI", sans-serif;
+    }
+
+    @font-face {
+      font-family: "PkgGogh";
+      src: url("background_extracted/fonts/Gogh-ExtraBold.otf") format("opentype");
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "PkgSans";
+      src: url("background_extracted/fonts/workshop/3173409941/GoogleSans-Medium.otf") format("opentype");
+      font-display: swap;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      background: #10171c;
+      position: relative;
+      color: #fff;
+    }
+
+    body.theme-oled-friendly {
+      background: #050608;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: none;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .pkg-scene {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+      background: linear-gradient(155deg, #f7f7f5 0%, #f7f7f5 50.4%, #020202 50.6%, #020202 100%);
+    }
+
+    body.theme-oled-friendly .pkg-scene {
+      background:
+        linear-gradient(155deg, #ececeb 0%, #ececeb 50.4%, #000000 50.6%, #000000 100%);
+    }
+
+    .pkg-scene::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: none;
+      opacity: 1;
+    }
+
+    body.theme-oled-friendly .pkg-scene::before {
+      background: none;
+      opacity: 1;
+    }
+
+    .pkg-corner {
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      opacity: 0.95;
+    }
+
+    .pkg-corner::before,
+    .pkg-corner::after {
+      content: "";
+      position: absolute;
+      background: currentColor;
+      border-radius: 1px;
+    }
+
+    .pkg-corner::before {
+      width: 34px;
+      height: 3px;
+      top: 0;
+      left: 0;
+    }
+
+    .pkg-corner::after {
+      width: 3px;
+      height: 34px;
+      top: 0;
+      left: 0;
+    }
+
+    .pkg-corner.top-left {
+      top: 18px;
+      left: 6px;
+      color: #12191c;
+    }
+
+    .pkg-corner.top-right {
+      top: 18px;
+      right: 6px;
+      transform: rotate(90deg);
+      color: #12191c;
+    }
+
+    .pkg-corner.bottom-left {
+      bottom: 60px;
+      left: 6px;
+      transform: rotate(-90deg);
+      color: #f4f4f0;
+    }
+
+    .pkg-corner.bottom-right {
+      bottom: 60px;
+      right: 6px;
+      transform: rotate(180deg);
+      color: #f4f4f0;
+    }
+
+    .pkg-corner.top-right,
+    .pkg-corner.bottom-right {
+      display: none;
+    }
+
+    body.theme-oled-friendly .pkg-corner.top-left,
+    body.theme-oled-friendly .pkg-corner.top-right {
+      color: #d0d0d0;
+    }
+
+    body.theme-oled-friendly .pkg-corner.bottom-left,
+    body.theme-oled-friendly .pkg-corner.bottom-right {
+      color: #bcbcbc;
+    }
+
+    .pkg-dot {
+      position: absolute;
+      top: 26px;
+      left: 22px;
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: #12191c;
+    }
+
+    body.theme-oled-friendly .pkg-dot {
+      background: #d6d6d6;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.18);
+    }
+
+    .pkg-signature {
+      position: absolute;
+      top: 20px;
+      right: 18px;
+      font-family: "PkgGogh", Georgia, serif;
+      font-size: 24px;
+      color: #11191d;
+      letter-spacing: 0.02em;
+      display: none;
+    }
+
+    body.theme-oled-friendly .pkg-signature {
+      color: #cfcfcf;
+      text-shadow: none;
+    }
+
+    .pkg-flower {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      max-width: none;
+      opacity: 0.98;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .pkg-flower.top {
+      left: 48.15%;
+      top: 50.1%;
+      width: min(13.5vw, 360px);
+      filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.12));
+    }
+
+    .pkg-flower.bottom {
+      left: 51.45%;
+      top: 53.1%;
+      width: min(13.8vw, 372px);
+      filter: drop-shadow(0 3px 10px rgba(255, 255, 255, 0.04));
+    }
+
+    .pkg-text {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .pkg-text.life {
+      left: 50.1%;
+      top: 66.2%;
+      color: #f5f5f0;
+    }
+
+    .pkg-text.death {
+      left: 50.1%;
+      top: 23.2%;
+      color: #131a1d;
+    }
+
+    body.theme-oled-friendly .pkg-text.life {
+      color: #f0f0f0;
+      text-shadow: none;
+    }
+
+    body.theme-oled-friendly .pkg-text.death {
+      color: #b8b8b8;
+      text-shadow: none;
+    }
+
+    body.theme-oled-friendly .pkg-flower {
+      opacity: 0.5;
+      filter: grayscale(0.1) brightness(0.72) contrast(1.05);
+    }
+
+    body.theme-oled-friendly .pkg-petal.light {
+      background: rgba(230, 230, 230, 0.35);
+      box-shadow: none;
+    }
+
+    body.theme-oled-friendly .pkg-petal.dark {
+      background: rgba(120, 120, 120, 0.28);
+      box-shadow: none;
+    }
+
+    .pkg-kanji {
+      font-family: "PkgGogh", "Times New Roman", serif;
+      font-size: clamp(24px, 2vw, 38px);
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+
+    .pkg-word {
+      font-family: "PkgGogh", "Times New Roman", serif;
+      font-size: clamp(30px, 2.5vw, 52px);
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      text-indent: 0.42em;
+      font-weight: 700;
+    }
+
+    .pkg-petal {
+      position: absolute;
+      width: 8px;
+      height: 4px;
+      border-radius: 999px 2px 999px 2px;
+      transform: rotate(28deg);
+      opacity: 0.75;
+      animation: drift 22s linear infinite;
+      pointer-events: none;
+    }
+
+    .pkg-petal.light {
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.18);
+    }
+
+    .pkg-petal.dark {
+      background: rgba(20, 28, 32, 0.78);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
+    }
+
+    .pkg-petal.p1 { left: 46%; top: 44%; animation-delay: -1s; }
+    .pkg-petal.p2 { left: 53%; top: 38%; animation-delay: -5s; }
+    .pkg-petal.p3 { left: 50%; top: 62%; animation-delay: -8s; }
+    .pkg-petal.p4 { left: 58%; top: 58%; animation-delay: -11s; }
+    .pkg-petal.p5 { left: 42%; top: 30%; animation-delay: -13s; }
+
+    .pkg-petal.p6 { left: 13%; top: 16%; animation-delay: -2s; }
+    .pkg-petal.p7 { left: 27%; top: 11%; animation-delay: -7s; }
+    .pkg-petal.p8 { left: 41%; top: 20%; animation-delay: -4s; }
+    .pkg-petal.p9 { left: 63%; top: 12%; animation-delay: -9s; }
+    .pkg-petal.p10 { left: 78%; top: 18%; animation-delay: -15s; }
+    .pkg-petal.p11 { left: 86%; top: 8%; animation-delay: -3s; }
+    .pkg-petal.p12 { left: 18%; top: 48%; animation-delay: -10s; }
+    .pkg-petal.p13 { left: 31%; top: 41%; animation-delay: -14s; }
+    .pkg-petal.p14 { left: 59%; top: 46%; animation-delay: -6s; }
+    .pkg-petal.p15 { left: 70%; top: 55%; animation-delay: -12s; }
+    .pkg-petal.p16 { left: 82%; top: 50%; animation-delay: -16s; }
+    .pkg-petal.p17 { left: 10%; top: 78%; animation-delay: -5s; }
+    .pkg-petal.p18 { left: 66%; top: 82%; animation-delay: -8s; }
+    .pkg-petal.p19 { left: 88%; top: 86%; animation-delay: -17s; }
+    .pkg-petal.p20 { left: 95%; top: 96%; animation-delay: -1s; }
+
+    @keyframes drift {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(28deg);
+      }
+      50% {
+        transform: translate3d(-18px, 20px, 0) rotate(80deg);
+      }
+      100% {
+        transform: translate3d(-34px, 44px, 0) rotate(140deg);
+      }
+    }
+
+    .desktop {
+      position: relative;
+      min-height: calc(100vh - 42px);
+      padding: 22px 20px 64px;
+      z-index: 2;
+      border-radius: 20px;
+      margin: 10px;
+    }
+
+    .desktop-icons {
+      display: grid;
+      gap: 14px;
+      width: 92px;
+    }
+
+    .desktop-icon {
+      text-align: center;
+      color: #fff;
+      text-decoration: none;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.65);
+      font-size: 12px;
+    }
+
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 6px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 4px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .icon-my-drive { background: #ffffff url("google-drive.png") center center / 72% 72% no-repeat; }
+    .icon-browser { background: #ffffff url("search-interface-symbol.png") center center / 68% 68% no-repeat; }
+    .icon-mail { background: #ffffff url("gmail.png") center center / 72% 72% no-repeat; }
+    .icon-code {
+      background: #ffffff url("github.png") center center / 70% 70% no-repeat;
+    }
+    .icon-notes { background: linear-gradient(180deg, #fff6cc, #f0d16d); }
+    .icon-youtube { background: #ffffff url("youtube.png") center center / 72% 72% no-repeat; }
+    .icon-bitwarden { background: #ffffff url("bitwarden.png") center center / 72% 72% no-repeat; }
+
+    .window {
+      position: absolute;
+      width: min(560px, calc(100vw - 60px));
+      border-radius: 10px 10px 8px 8px;
+      box-shadow: var(--xp-shadow);
+      overflow: hidden;
+      border: 1px solid #0a2e6b;
+      background: #dbeaff;
+      color: var(--xp-text);
+    }
+
+    .window.hidden {
+      display: none;
+    }
+
+    .window.search-window {
+      top: 108px;
+      left: 150px;
+    }
+
+    .window.links-window {
+      top: 150px;
+      left: 420px;
+    }
+
+    .window.notes-window {
+      top: 230px;
+      left: 250px;
+      width: min(620px, calc(100vw - 60px));
+    }
+
+    .titlebar {
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8px 0 12px;
+      background: linear-gradient(180deg, #1975ef 0%, #0d5fda 55%, #0b49b5 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+      cursor: move;
+      user-select: none;
+    }
+
+    .title-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .title-badge {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      background: linear-gradient(180deg, #fff7a5, #ebb72a);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .window-buttons {
+      display: flex;
+      gap: 5px;
+    }
+
+    .win-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      background: linear-gradient(180deg, #78b7ff, #377fe5);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+      cursor: pointer;
+    }
+
+    .win-btn.close {
+      background: linear-gradient(180deg, #ff8b74, #d14a2b);
+    }
+
+    .window-body {
+      padding: 16px;
+      background: linear-gradient(180deg, #fafdff, #edf5ff 28%, #dbe9fb);
+    }
+
+    .panel {
+      border: 1px solid #8db1db;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #ffffff, #e5effd);
+      box-shadow: inset 0 1px 0 #fff;
+    }
+
+    .panel-head {
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(180deg, #4e95f2, #2d72d8);
+    }
+
+    .panel-body {
+      padding: 14px;
+    }
+
+    .xp-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 2px solid #1a6c1e;
+      background: linear-gradient(180deg, var(--xp-green-1), var(--xp-green-2));
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+    }
+
+    .xp-button.secondary {
+      border-color: #8a5b00;
+      background: linear-gradient(180deg, var(--xp-gold-1), var(--xp-gold-2));
+      color: #6d4100;
+    }
+
+    .xp-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #fff7b6;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    input,
+    button,
+    textarea {
+      font: inherit;
+    }
+
+    #searchInput,
+    textarea {
+      border-radius: 8px;
+      border: 2px solid #7ea8da;
+      background: #fff;
+      color: var(--xp-text);
+      box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #d6e7fb;
+    }
+
+    #searchInput {
+      flex: 1 1 300px;
+      min-width: 250px;
+      padding: 13px 14px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 12px 18px;
+      border-radius: 8px;
+      border: 2px solid #134d9e;
+      background: linear-gradient(180deg, #5ea7ff, #1f69dd);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.45), inset -1px -1px 0 rgba(0, 0, 0, 0.15);
+    }
+
+    .links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .link {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #9bbbe0;
+      background: linear-gradient(180deg, #ffffff, #dbeafb);
+      color: var(--xp-text);
+      text-decoration: none;
+      box-shadow: inset 0 1px 0 #fff;
+    }
+
+    .link:hover {
+      background: linear-gradient(180deg, #fff7d3, #ffe39b);
+      border-color: #d89a23;
+    }
+
+    .link-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .i-youtube { background: #ffffff url("youtube.png") center center / 72% 72% no-repeat; }
+    .i-gmail { background: #ffffff url("gmail.png") center center / 72% 72% no-repeat; }
+    .i-drive { background: #ffffff url("google-drive.png") center center / 72% 72% no-repeat; }
+    .i-chatgpt { background: linear-gradient(180deg, #9de2a3, #36a84a); }
+    .i-github { background: #ffffff url("github.png") center center / 72% 72% no-repeat; }
+    .i-reddit { background: linear-gradient(180deg, #ffb57c, #ef6f1e); }
+    .i-search { background: #ffffff url("search-interface-symbol.png") center center / 70% 70% no-repeat; }
+    .i-bitwarden { background: #ffffff url("bitwarden.png") center center / 72% 72% no-repeat; }
+
+    .link strong,
+    .link small {
+      display: block;
+    }
+
+    .link small {
+      color: var(--xp-muted);
+      margin-top: 2px;
+    }
+
+    .status-cards {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .card {
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #97b8e1;
+      background: linear-gradient(180deg, #ffffff, #e1edfc);
+    }
+
+    .label {
+      color: #5c7ca8;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .value {
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 220px;
+      padding: 12px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .note-hint {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--xp-muted);
+    }
+
+    .start-menu {
+      position: fixed;
+      left: 6px;
+      bottom: 44px;
+      width: 470px;
+      border-radius: 10px 10px 0 0;
+      overflow: hidden;
+      box-shadow: var(--xp-shadow);
+      border: 1px solid #0a2e6b;
+      display: none;
+    }
+
+    .start-menu.open {
+      display: block;
+    }
+
+    .start-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 18px 16px;
+      background: linear-gradient(180deg, #1c79f0, #0d59ca);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .start-avatar {
+      width: 58px;
+      height: 58px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #fff4a9, #efc538);
+      border: 2px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .start-top strong,
+    .start-top small {
+      display: block;
+    }
+
+    .start-top strong {
+      font-size: 18px;
+    }
+
+    .start-top small {
+      margin-top: 4px;
+      font-size: 12px;
+      opacity: 0.95;
+      font-weight: 400;
+    }
+
+    .start-body {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      background: #fff;
+      color: var(--xp-text);
+    }
+
+    .start-left,
+    .start-right {
+      padding: 14px;
+    }
+
+    .start-left {
+      background: linear-gradient(180deg, #ffffff, #f1f7ff);
+    }
+
+    .start-right {
+      background: linear-gradient(180deg, #dbe9ff, #c0d7fb);
+      border-left: 1px solid #aac5eb;
+    }
+
+    .menu-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 14px;
+      border: 0;
+      background: transparent;
+      color: var(--xp-text);
+      text-align: left;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: none;
+    }
+
+    .menu-item:hover {
+      background: linear-gradient(180deg, #fff7d8, #ffe29c);
+    }
+
+    .menu-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .menu-item span:last-child {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .start-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 12px 14px;
+      background: linear-gradient(180deg, #d4e6ff, #b8d2f8);
+      border-top: 1px solid #9fbde9;
+    }
+
+    .footer-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 2px solid #8a5b00;
+      background: linear-gradient(180deg, var(--xp-gold-1), var(--xp-gold-2));
+      color: #6d4100;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .theme-toggle {
+      width: 100%;
+      justify-content: center;
+      margin-top: 8px;
+      border: 2px solid #385f8f;
+      background: linear-gradient(180deg, #7aa9df, #4671ba);
+      color: #ffffff;
+    }
+
+    .taskbar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 52px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 12px;
+      background: #020202;
+      border-top: 1px solid #1a1d22;
+      border-left: 0;
+      border-right: 0;
+      border-bottom: 0;
+      border-radius: 0;
+      box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.32);
+      z-index: 5;
+    }
+
+    .task-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .launcher-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100px;
+      height: 100px;
+      border-radius: 20px 20px 0 0;
+      border: 2px solid #26292f;
+      background: #ffffff url("home.png") center center / 75% 75% no-repeat;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      font-size: 0;
+      font-weight: 700;
+      color: #fff;
+      transform: translateY(-24px);
+      margin: 0 5px;
+    }
+
+    .launcher-btn:hover {
+      background: #e6e6e6 url("home.png") center center / 70% 70% no-repeat;
+      border-color: #3a3f45;
+      box-shadow: 0 0 16px rgba(26, 220, 75, 0.3);
+    }
+
+    .task-buttons {
+      display: flex;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .task-btn {
+      width: 52px;
+      min-width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border-radius: 20px 20px 0 0;
+      border: 2px solid #26292f;
+      background: #ffffff;
+      color: #fff;
+      font-size: 0;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .task-btn:hover {
+      background: #e6e6e6;
+      border-color: #3a3f45;
+    }
+
+    .task-btn[href*="My%20Drive"]::before {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 40px;
+      background: url("google-drive.png") center center / 70% 70% no-repeat;
+    }
+
+    .task-btn[data-open-window="search"]::before {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 40px;
+      background: url("search-interface-symbol.png") center center / 70% 70% no-repeat;
+    }
+
+    .task-btn[data-open-window="notes"]::before {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(180deg, #fff6cc, #f0d16d);
+      border-radius: 4px;
+    }
+
+    .task-btn[href*="mail.google"]::before {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 40px;
+      background: url("gmail.png") center center / 70% 70% no-repeat;
+    }
+
+    .task-btn[href*="github.com"]::before {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 40px;
+      background: url("github.png") center center / 70% 70% no-repeat;
+    }
+
+    .task-btn[href*="bitwarden"]::before {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 40px;
+      background: url("bitwarden.png") center center / 70% 70% no-repeat;
+    }
+
+    .task-btn[href*="youtube"]::before {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 40px;
+      background: url("youtube.png") center center / 70% 70% no-repeat;
+    }
+
+    .task-btn.open {
+      display: flex;
+    }
+
+    .task-btn::before {
+      content: none;
+    }
+
+    .tray {
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        overflow: auto;
+      }
+
+      .window {
+        position: static;
+        margin-top: 16px;
+      }
+
+      .desktop {
+        display: block;
+      }
+
+      .desktop-icons {
+        grid-template-columns: repeat(3, 92px);
+        width: auto;
+      }
+
+      .start-menu {
+        width: min(470px, calc(100vw - 12px));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .links {
+        grid-template-columns: 1fr;
+      }
+
+      .task-center {
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="pkg-scene" aria-hidden="true">
+    <div class="pkg-corner top-left"></div>
+    <div class="pkg-corner top-right"></div>
+    <div class="pkg-corner bottom-left"></div>
+    <div class="pkg-corner bottom-right"></div>
+    <div class="pkg-dot"></div>
+    <div class="pkg-signature">Asuki</div>
+    <img class="pkg-flower top" src="background_extracted/materials/flower%20top.png" alt="">
+    <img class="pkg-flower bottom" src="background_extracted/materials/flower%20bottom.png" alt="">
+    <div class="pkg-text death">
+      <div class="pkg-kanji">生</div>
+      <div class="pkg-word">LIFE</div>
+    </div>
+    <div class="pkg-text life">
+      <div class="pkg-kanji">死</div>
+      <div class="pkg-word">DEATH</div>
+    </div>
+    <span class="pkg-petal dark p1"></span>
+    <span class="pkg-petal dark p2"></span>
+    <span class="pkg-petal light p3"></span>
+    <span class="pkg-petal light p4"></span>
+    <span class="pkg-petal dark p5"></span>
+    <span class="pkg-petal dark p6"></span>
+    <span class="pkg-petal dark p7"></span>
+    <span class="pkg-petal dark p8"></span>
+    <span class="pkg-petal dark p9"></span>
+    <span class="pkg-petal dark p10"></span>
+    <span class="pkg-petal dark p11"></span>
+    <span class="pkg-petal light p12"></span>
+    <span class="pkg-petal dark p13"></span>
+    <span class="pkg-petal light p14"></span>
+    <span class="pkg-petal light p15"></span>
+    <span class="pkg-petal light p16"></span>
+    <span class="pkg-petal light p17"></span>
+    <span class="pkg-petal light p18"></span>
+    <span class="pkg-petal light p19"></span>
+    <span class="pkg-petal light p20"></span>
+  </div>
+
+  <main class="desktop">
+    <section class="window search-window hidden" data-window="search">
+      <div class="titlebar">
+        <div class="title-left">
+          <div class="title-badge"></div>
+          <span>Search</span>
+        </div>
+        <div class="window-buttons">
+          <div class="win-btn" data-minimize="search"></div>
+          <div class="win-btn close" data-close="search"></div>
+        </div>
+      </div>
+      <div class="window-body">
+        <section class="panel">
+          <div class="panel-head">Search the Web</div>
+          <div class="panel-body">
+            <form id="searchForm">
+              <input id="searchInput" type="text" placeholder="Search Google or type a website" autocomplete="off">
+              <button type="submit">Search</button>
+            </form>
+            <div class="status-cards">
+              <div class="card">
+                <div class="label">Tip</div>
+                <div class="value">Type a full address like <strong>youtube.com</strong> to open it directly instead of searching.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="window links-window hidden" data-window="links">
+      <div class="titlebar">
+        <div class="title-left">
+          <div class="title-badge"></div>
+          <span>Common Places</span>
+        </div>
+        <div class="window-buttons">
+          <div class="win-btn" data-minimize="links"></div>
+          <div class="win-btn close" data-close="links"></div>
+        </div>
+      </div>
+      <div class="window-body">
+        <section class="panel">
+          <div class="panel-head">Quick Links</div>
+          <div class="panel-body">
+            <div class="links" id="links"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="window notes-window hidden" data-window="notes">
+      <div class="titlebar">
+        <div class="title-left">
+          <div class="title-badge"></div>
+          <span>Notepad</span>
+        </div>
+        <div class="window-buttons">
+          <div class="win-btn" data-minimize="notes"></div>
+          <div class="win-btn close" data-close="notes"></div>
+        </div>
+      </div>
+      <div class="window-body">
+        <section class="panel">
+          <div class="panel-head">My Notes</div>
+          <div class="panel-body">
+            <textarea id="notes" placeholder="Write reminders, plans, or anything you want to keep on your homepage."></textarea>
+            <div class="note-hint">Notes save automatically on this computer.</div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <div class="start-menu" id="startMenu">
+    <div class="start-top">
+      <div class="start-avatar"></div>
+      <div>
+        <strong>Welcome</strong>
+        <small>Choose a program</small>
+      </div>
+    </div>
+    <div class="start-body">
+      <div class="start-left">
+        <button class="menu-item" type="button" data-open-window="search">
+          <span class="menu-icon icon-browser"></span>
+          <span>Search</span>
+        </button>
+        <button class="menu-item" type="button" data-open-window="links">
+          <span class="menu-icon icon-code"></span>
+          <span>Common Places</span>
+        </button>
+        <button class="menu-item" type="button" data-open-window="notes">
+          <span class="menu-icon icon-notes"></span>
+          <span>Notepad</span>
+        </button>
+      </div>
+      <div class="start-right">
+        <a class="menu-item" href="file:///G:/My%20Drive/" target="_blank" rel="noopener noreferrer">
+          <span class="menu-icon icon-my-drive"></span>
+          <span>My Drive</span>
+        </a>
+        <a class="menu-item" href="https://mail.google.com" target="_blank" rel="noopener noreferrer">
+          <span class="menu-icon icon-mail"></span>
+          <span>Mail</span>
+        </a>
+        <a class="menu-item" href="https://github.com" target="_blank" rel="noopener noreferrer">
+          <span class="menu-icon icon-code"></span>
+          <span>GitHub</span>
+        </a>
+        <a class="menu-item" href="https://vault.bitwarden.com" target="_blank" rel="noopener noreferrer">
+          <span class="menu-icon icon-bitwarden"></span>
+          <span>Bitwarden</span>
+        </a>
+      </div>
+    </div>
+    <div class="start-footer">
+      <button class="footer-btn theme-toggle" id="themeToggle" type="button">Vibrant Dark</button>
+      <div class="footer-btn">Log Off</div>
+      <div class="footer-btn">Turn Off</div>
+    </div>
+  </div>
+
+  <div class="taskbar">
+    <div class="task-center">
+      <div class="task-buttons">
+        <a class="task-btn" href="file:///G:/My%20Drive/" target="_blank" rel="noopener noreferrer" title="My Drive"></a>
+        <a class="task-btn" href="#" data-open-window="search" title="Search"></a>
+        <a class="task-btn" href="#" data-open-window="notes" title="Notes"></a>
+        <a class="task-btn" href="https://mail.google.com" target="_blank" rel="noopener noreferrer" title="Mail"></a>
+      </div>
+      <button class="launcher-btn" id="startButton" type="button" aria-label="Open menu"></button>
+      <div class="task-buttons">
+        <a class="task-btn" href="https://github.com" target="_blank" rel="noopener noreferrer" title="Code"></a>
+        <a class="task-btn" href="https://vault.bitwarden.com" target="_blank" rel="noopener noreferrer" title="Bitwarden"></a>
+        <a class="task-btn" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" title="YouTube"></a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const links = [
+      { name: "YouTube", url: "https://www.youtube.com", hint: "Videos", icon: "i-youtube" },
+      { name: "Gmail", url: "https://mail.google.com", hint: "Email", icon: "i-gmail" },
+      { name: "My Drive", url: "file:///G:/My%20Drive/", hint: "Files", icon: "i-drive" },
+      { name: "Bitwarden", url: "https://vault.bitwarden.com", hint: "Passwords", icon: "i-bitwarden" },
+      { name: "ChatGPT", url: "https://chat.openai.com", hint: "AI", icon: "i-chatgpt" },
+      { name: "GitHub", url: "https://github.com", hint: "Code", icon: "i-github" },
+      { name: "Reddit", url: "https://www.reddit.com", hint: "Browse", icon: "i-reddit" }
+    ];
+
+    const focusLines = [
+      "Keep the first task small. Momentum beats pressure.",
+      "One clear step is better than ten vague plans.",
+      "A calm start usually wins the whole afternoon.",
+      "Open what matters. Close what drains attention."
+    ];
+
+    const startMenu = document.getElementById("startMenu");
+    const startButton = document.getElementById("startButton");
+    const windows = [...document.querySelectorAll("[data-window]")];
+    let topZ = 20;
+
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    function renderLinks() {
+      const root = document.getElementById("links");
+      root.innerHTML = "";
+
+      links.forEach((item) => {
+        const a = document.createElement("a");
+        a.className = "link";
+        a.href = item.url;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.innerHTML = `
+          <span class="link-icon ${item.icon}"></span>
+          <span>
+            <strong>${item.name}</strong>
+            <small>${item.hint}</small>
+          </span>
+        `;
+        root.appendChild(a);
+      });
+    }
+
+    function handleSearch(event) {
+      event.preventDefault();
+      const raw = document.getElementById("searchInput").value.trim();
+      if (!raw) return;
+
+      const looksLikeUrl = /^https?:\/\//i.test(raw) || /^[\w-]+\.[a-z]{2,}/i.test(raw);
+      const target = /^https?:\/\//i.test(raw)
+        ? raw
+        : looksLikeUrl
+          ? `https://${raw}`
+          : `https://www.google.com/search?q=${encodeURIComponent(raw)}`;
+
+      window.open(target, "_blank", "noopener,noreferrer");
+    }
+
+    function loadNotes() {
+      const notes = document.getElementById("notes");
+      notes.value = localStorage.getItem("homepage-notes") || "";
+      notes.addEventListener("input", () => {
+        localStorage.setItem("homepage-notes", notes.value);
+      });
+    }
+
+    function loadTheme() {
+      const theme = localStorage.getItem("homepage-theme") || "default";
+      document.body.classList.toggle("theme-oled-friendly", theme === "oled-friendly");
+      const toggle = document.getElementById("themeToggle");
+      if (toggle) {
+        toggle.textContent = theme === "oled-friendly" ? "OLED Friendly On" : "OLED Friendly";
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.body.classList.toggle("theme-oled-friendly");
+      localStorage.setItem("homepage-theme", isDark ? "oled-friendly" : "default");
+      loadTheme();
+    }
+
+    function bringToFront(win) {
+      topZ += 1;
+      win.style.zIndex = topZ;
+    }
+
+    function syncTaskButtons() {
+      windows.forEach((win) => {
+        const name = win.dataset.window;
+        const task = document.querySelector(`[data-task="${name}"]`);
+        if (!task) return;
+        task.classList.toggle("open", !win.classList.contains("hidden"));
+      });
+    }
+
+    function openWindow(name) {
+      const win = document.querySelector(`[data-window="${name}"]`);
+      if (!win) return;
+      win.classList.remove("hidden");
+      bringToFront(win);
+      syncTaskButtons();
+      startMenu.classList.remove("open");
+    }
+
+    function closeWindow(name) {
+      const win = document.querySelector(`[data-window="${name}"]`);
+      if (!win) return;
+      win.classList.add("hidden");
+      syncTaskButtons();
+    }
+
+    function toggleStartMenu() {
+      startMenu.classList.toggle("open");
+    }
+
+    function enableDragging(win) {
+      const bar = win.querySelector(".titlebar");
+      let dragging = false;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      bar.addEventListener("mousedown", (event) => {
+        if (event.target.closest(".win-btn")) return;
+        dragging = true;
+        bringToFront(win);
+        const rect = win.getBoundingClientRect();
+        offsetX = event.clientX - rect.left;
+        offsetY = event.clientY - rect.top;
+      });
+
+      window.addEventListener("mousemove", (event) => {
+        if (!dragging) return;
+        win.style.left = `${Math.max(10, event.clientX - offsetX)}px`;
+        win.style.top = `${Math.max(10, event.clientY - offsetY)}px`;
+      });
+
+      window.addEventListener("mouseup", () => {
+        dragging = false;
+      });
+    }
+
+    updateClock();
+    renderLinks();
+    loadNotes();
+    loadTheme();
+    setInterval(updateClock, 1000);
+    document.getElementById("searchForm").addEventListener("submit", handleSearch);
+    document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+
+    windows.forEach((win) => {
+      enableDragging(win);
+      win.addEventListener("mousedown", () => bringToFront(win));
+    });
+
+    document.querySelectorAll("[data-open-window]").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        event.preventDefault();
+        openWindow(item.dataset.openWindow);
+      });
+    });
+
+    document.querySelectorAll("[data-close]").forEach((item) => {
+      item.addEventListener("click", () => closeWindow(item.dataset.close));
+    });
+
+    document.querySelectorAll("[data-minimize]").forEach((item) => {
+      item.addEventListener("click", () => closeWindow(item.dataset.minimize));
+    });
+
+    document.querySelectorAll("[data-task]").forEach((item) => {
+      item.addEventListener("click", () => openWindow(item.dataset.task));
+    });
+
+    startButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      toggleStartMenu();
+    });
+
+    startMenu.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+
+    document.addEventListener("click", () => {
+      startMenu.classList.remove("open");
+    });
+  </script>
+</body>
+</html>
