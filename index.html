@@ -283,7 +283,7 @@
       border-radius: 999px 2px 999px 2px;
       transform: rotate(28deg);
       opacity: 0.75;
-      animation: drift 22s linear infinite;
+      animation: drift 38s linear infinite;
       pointer-events: none;
     }
 
@@ -318,6 +318,22 @@
     .pkg-petal.p18 { left: 66%; top: 82%; animation-delay: -8s; }
     .pkg-petal.p19 { left: 88%; top: 86%; animation-delay: -17s; }
     .pkg-petal.p20 { left: 95%; top: 96%; animation-delay: -1s; }
+    .pkg-petal.p21 { left: 7%; top: 26%; animation-delay: -18s; }
+    .pkg-petal.p22 { left: 22%; top: 28%; animation-delay: -20s; }
+    .pkg-petal.p23 { left: 36%; top: 7%; animation-delay: -19s; }
+    .pkg-petal.p24 { left: 52%; top: 16%; animation-delay: -21s; }
+    .pkg-petal.p25 { left: 74%; top: 33%; animation-delay: -22s; }
+    .pkg-petal.p26 { left: 91%; top: 35%; animation-delay: -18s; }
+    .pkg-petal.p27 { left: 5%; top: 58%; animation-delay: -23s; }
+    .pkg-petal.p28 { left: 24%; top: 67%; animation-delay: -20s; }
+    .pkg-petal.p29 { left: 39%; top: 77%; animation-delay: -24s; }
+    .pkg-petal.p30 { left: 55%; top: 72%; animation-delay: -19s; }
+    .pkg-petal.p31 { left: 76%; top: 72%; animation-delay: -25s; }
+    .pkg-petal.p32 { left: 92%; top: 68%; animation-delay: -22s; }
+    .pkg-petal.p33 { left: 16%; top: 91%; animation-delay: -21s; }
+    .pkg-petal.p34 { left: 34%; top: 94%; animation-delay: -26s; }
+    .pkg-petal.p35 { left: 49%; top: 88%; animation-delay: -23s; }
+    .pkg-petal.p36 { left: 72%; top: 93%; animation-delay: -27s; }
 
     @keyframes drift {
       0% {
@@ -373,90 +389,6 @@
     .icon-youtube { background: #ffffff url("youtube.png") center center / 72% 72% no-repeat; }
     .icon-bitwarden { background: #ffffff url("bitwarden.png") center center / 72% 72% no-repeat; }
 
-    .window {
-      position: absolute;
-      width: min(560px, calc(100vw - 60px));
-      border-radius: 10px 10px 8px 8px;
-      box-shadow: var(--xp-shadow);
-      overflow: hidden;
-      border: 1px solid #0a2e6b;
-      background: #dbeaff;
-      color: var(--xp-text);
-    }
-
-    .window.hidden {
-      display: none;
-    }
-
-    .window.search-window {
-      top: 108px;
-      left: 150px;
-    }
-
-    .window.links-window {
-      top: 150px;
-      left: 420px;
-    }
-
-    .window.notes-window {
-      top: 230px;
-      left: 250px;
-      width: min(620px, calc(100vw - 60px));
-    }
-
-    .titlebar {
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 8px 0 12px;
-      background: linear-gradient(180deg, #1975ef 0%, #0d5fda 55%, #0b49b5 100%);
-      color: #fff;
-      font-weight: 700;
-      font-size: 13px;
-      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
-      cursor: move;
-      user-select: none;
-    }
-
-    .title-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .title-badge {
-      width: 16px;
-      height: 16px;
-      border-radius: 4px;
-      background: linear-gradient(180deg, #fff7a5, #ebb72a);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-    }
-
-    .window-buttons {
-      display: flex;
-      gap: 5px;
-    }
-
-    .win-btn {
-      width: 22px;
-      height: 22px;
-      border-radius: 5px;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      background: linear-gradient(180deg, #78b7ff, #377fe5);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
-      cursor: pointer;
-    }
-
-    .win-btn.close {
-      background: linear-gradient(180deg, #ff8b74, #d14a2b);
-    }
-
-    .window-body {
-      padding: 16px;
-      background: linear-gradient(180deg, #fafdff, #edf5ff 28%, #dbe9fb);
-    }
-
     .panel {
       border: 1px solid #8db1db;
       border-radius: 12px;
@@ -510,6 +442,7 @@
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
+      justify-content: center;
     }
 
     input,
@@ -521,28 +454,34 @@
     #searchInput,
     textarea {
       border-radius: 8px;
-      border: 2px solid #7ea8da;
+      border: none;
       background: #fff;
       color: var(--xp-text);
-      box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #d6e7fb;
+      box-shadow: none;
+      outline: none;
     }
 
     #searchInput {
-      flex: 1 1 300px;
-      min-width: 250px;
-      padding: 13px 14px;
+      flex: 0 0 auto;
+      width: 280px;
+      padding: 13px 14px 13px 45px;
       font-size: 16px;
+      background: #fff url("search-interface-symbol.png") 12px center / 20px 20px no-repeat;
     }
 
     button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       padding: 12px 18px;
       border-radius: 8px;
-      border: 2px solid #134d9e;
+      border: none;
       background: linear-gradient(180deg, #5ea7ff, #1f69dd);
       color: #fff;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.45), inset -1px -1px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: none;
+      outline: none;
     }
 
     .links {
@@ -558,11 +497,11 @@
       align-items: center;
       padding: 12px;
       border-radius: 10px;
-      border: 1px solid #9bbbe0;
+      border: none;
       background: linear-gradient(180deg, #ffffff, #dbeafb);
       color: var(--xp-text);
       text-decoration: none;
-      box-shadow: inset 0 1px 0 #fff;
+      box-shadow: none;
     }
 
     .link:hover {
@@ -636,6 +575,67 @@
       margin-top: 8px;
       font-size: 12px;
       color: var(--xp-muted);
+    }
+
+    .note-panel {
+      width: 25vw;
+      min-width: 220px;
+      max-width: 400px;
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 8px;
+      background: rgba(14, 16, 18, 0.82);
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(12px);
+    }
+
+    .note-panel.hidden {
+      display: none;
+    }
+
+    .note-panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      color: #f7f7f5;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .note-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .note-title::before {
+      content: "";
+      width: 22px;
+      height: 22px;
+      background: url("wirte.png") center center / contain no-repeat;
+    }
+
+    .note-close {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      border: 2px solid #26292f;
+      border-radius: 8px;
+      background: #ffffff;
+      color: #111;
+      font-size: 18px;
+      line-height: 1;
+      box-shadow: none;
+    }
+
+    .note-close:hover {
+      background: #e6e6e6;
+      border-color: #3a3f45;
     }
 
     .start-menu {
@@ -826,6 +826,12 @@
       box-shadow: 0 0 16px rgba(26, 220, 75, 0.3);
     }
 
+    .launcher-btn.active {
+      background: #dfeee4 url("home.png") center center / 70% 70% no-repeat;
+      border-color: #4da762;
+      box-shadow: 0 0 16px rgba(26, 220, 75, 0.38);
+    }
+
     .task-buttons {
       display: flex;
       gap: 8px;
@@ -855,6 +861,14 @@
       border-color: #3a3f45;
     }
 
+    .task-btn.active {
+      background: #dfeee4;
+      border-color: #4da762;
+      box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.18), 0 0 14px rgba(26, 220, 75, 0.28);
+      transform: translateY(2px);
+    }
+
+    .task-btn[href*="drive.google"]::before,
     .task-btn[href*="My%20Drive"]::before {
       content: "";
       display: block;
@@ -863,21 +877,12 @@
       background: url("google-drive.png") center center / 70% 70% no-repeat;
     }
 
-    .task-btn[data-open-window="search"]::before {
+    .task-btn[data-note-toggle]::before {
       content: "";
       display: block;
       width: 40px;
       height: 40px;
-      background: url("search-interface-symbol.png") center center / 70% 70% no-repeat;
-    }
-
-    .task-btn[data-open-window="notes"]::before {
-      content: "";
-      display: block;
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(180deg, #fff6cc, #f0d16d);
-      border-radius: 4px;
+      background: url("wirte.png") center center / 70% 70% no-repeat;
     }
 
     .task-btn[href*="mail.google"]::before {
@@ -929,11 +934,6 @@
         overflow: auto;
       }
 
-      .window {
-        position: static;
-        margin-top: 16px;
-      }
-
       .desktop {
         display: block;
       }
@@ -946,6 +946,11 @@
       .start-menu {
         width: min(470px, calc(100vw - 12px));
       }
+
+      .note-panel,
+      #searchForm {
+        width: min(420px, calc(100vw - 40px)) !important;
+      }
     }
 
     @media (max-width: 640px) {
@@ -955,6 +960,53 @@
 
       .task-center {
         gap: 6px;
+        width: 100%;
+        justify-content: space-between;
+        padding: 0 8px;
+      }
+
+      .task-buttons {
+        gap: 4px;
+      }
+
+      .task-btn {
+        width: 42px;
+        min-width: 42px;
+        height: 46px;
+        border-radius: 14px 14px 0 0;
+      }
+
+      .task-btn::before,
+      .task-btn[href*="drive.google"]::before,
+      .task-btn[href*="My%20Drive"]::before,
+      .task-btn[data-note-toggle]::before,
+      .task-btn[href*="mail.google"]::before,
+      .task-btn[href*="github.com"]::before,
+      .task-btn[href*="bitwarden"]::before,
+      .task-btn[href*="youtube"]::before {
+        width: 32px;
+        height: 32px;
+      }
+
+      .launcher-btn {
+        width: 72px;
+        height: 78px;
+        border-radius: 16px 16px 0 0;
+        transform: translateY(-18px);
+        margin: 0 2px;
+      }
+
+      .start-body {
+        grid-template-columns: 1fr;
+      }
+
+      .start-right {
+        border-left: 0;
+        border-top: 1px solid #aac5eb;
+      }
+
+      .start-footer {
+        flex-wrap: wrap;
       }
     }
   </style>
@@ -997,81 +1049,38 @@
     <span class="pkg-petal light p18"></span>
     <span class="pkg-petal light p19"></span>
     <span class="pkg-petal light p20"></span>
+    <span class="pkg-petal dark p21"></span>
+    <span class="pkg-petal dark p22"></span>
+    <span class="pkg-petal dark p23"></span>
+    <span class="pkg-petal dark p24"></span>
+    <span class="pkg-petal dark p25"></span>
+    <span class="pkg-petal dark p26"></span>
+    <span class="pkg-petal light p27"></span>
+    <span class="pkg-petal light p28"></span>
+    <span class="pkg-petal light p29"></span>
+    <span class="pkg-petal light p30"></span>
+    <span class="pkg-petal light p31"></span>
+    <span class="pkg-petal light p32"></span>
+    <span class="pkg-petal light p33"></span>
+    <span class="pkg-petal light p34"></span>
+    <span class="pkg-petal light p35"></span>
+    <span class="pkg-petal light p36"></span>
   </div>
 
   <main class="desktop">
-    <section class="window search-window hidden" data-window="search">
-      <div class="titlebar">
-        <div class="title-left">
-          <div class="title-badge"></div>
-          <span>Search</span>
+    <div style="width:100%;display:flex;flex-direction:column;align-items:center;margin-top:40px;gap:32px;">
+      <form id="searchForm" style="width:25vw;min-width:220px;max-width:400px;">
+        <input id="searchInput" type="text" placeholder="Search Google or type a website" autocomplete="off" style="width:100%;padding-left:40px;background:#fff url('search-interface-symbol.png') 12px center / 20px 20px no-repeat;">
+      </form>
+      <div class="note-panel hidden" id="notePanel">
+        <div class="note-panel-head">
+          <span class="note-title">Notes</span>
+          <button class="note-close" id="closeNotes" type="button" aria-label="Close notes">x</button>
         </div>
-        <div class="window-buttons">
-          <div class="win-btn" data-minimize="search"></div>
-          <div class="win-btn close" data-close="search"></div>
-        </div>
+        <textarea id="notes" placeholder="Write reminders, plans, or anything you want to keep on your homepage." style="width:100%;min-height:120px;"></textarea>
+        <div class="note-hint" style="color:#aaa;font-size:12px;margin-top:4px;">Notes save automatically on this computer.</div>
       </div>
-      <div class="window-body">
-        <section class="panel">
-          <div class="panel-head">Search the Web</div>
-          <div class="panel-body">
-            <form id="searchForm">
-              <input id="searchInput" type="text" placeholder="Search Google or type a website" autocomplete="off">
-              <button type="submit">Search</button>
-            </form>
-            <div class="status-cards">
-              <div class="card">
-                <div class="label">Tip</div>
-                <div class="value">Type a full address like <strong>youtube.com</strong> to open it directly instead of searching.</div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </section>
-
-    <section class="window links-window hidden" data-window="links">
-      <div class="titlebar">
-        <div class="title-left">
-          <div class="title-badge"></div>
-          <span>Common Places</span>
-        </div>
-        <div class="window-buttons">
-          <div class="win-btn" data-minimize="links"></div>
-          <div class="win-btn close" data-close="links"></div>
-        </div>
-      </div>
-      <div class="window-body">
-        <section class="panel">
-          <div class="panel-head">Quick Links</div>
-          <div class="panel-body">
-            <div class="links" id="links"></div>
-          </div>
-        </section>
-      </div>
-    </section>
-
-    <section class="window notes-window hidden" data-window="notes">
-      <div class="titlebar">
-        <div class="title-left">
-          <div class="title-badge"></div>
-          <span>Notepad</span>
-        </div>
-        <div class="window-buttons">
-          <div class="win-btn" data-minimize="notes"></div>
-          <div class="win-btn close" data-close="notes"></div>
-        </div>
-      </div>
-      <div class="window-body">
-        <section class="panel">
-          <div class="panel-head">My Notes</div>
-          <div class="panel-body">
-            <textarea id="notes" placeholder="Write reminders, plans, or anything you want to keep on your homepage."></textarea>
-            <div class="note-hint">Notes save automatically on this computer.</div>
-          </div>
-        </section>
-      </div>
-    </section>
+    </div>
   </main>
 
   <div class="start-menu" id="startMenu">
@@ -1084,21 +1093,10 @@
     </div>
     <div class="start-body">
       <div class="start-left">
-        <button class="menu-item" type="button" data-open-window="search">
-          <span class="menu-icon icon-browser"></span>
-          <span>Search</span>
-        </button>
-        <button class="menu-item" type="button" data-open-window="links">
-          <span class="menu-icon icon-code"></span>
-          <span>Common Places</span>
-        </button>
-        <button class="menu-item" type="button" data-open-window="notes">
-          <span class="menu-icon icon-notes"></span>
-          <span>Notepad</span>
-        </button>
+        <!-- Removed openable window buttons -->
       </div>
       <div class="start-right">
-        <a class="menu-item" href="file:///G:/My%20Drive/" target="_blank" rel="noopener noreferrer">
+        <a class="menu-item" href="https://drive.google.com/drive/my-drive" target="_blank" rel="noopener noreferrer">
           <span class="menu-icon icon-my-drive"></span>
           <span>My Drive</span>
         </a>
@@ -1126,9 +1124,8 @@
   <div class="taskbar">
     <div class="task-center">
       <div class="task-buttons">
-        <a class="task-btn" href="file:///G:/My%20Drive/" target="_blank" rel="noopener noreferrer" title="My Drive"></a>
-        <a class="task-btn" href="#" data-open-window="search" title="Search"></a>
-        <a class="task-btn" href="#" data-open-window="notes" title="Notes"></a>
+        <a class="task-btn" href="https://drive.google.com/drive/my-drive" target="_blank" rel="noopener noreferrer" title="My Drive"></a>
+        <button class="task-btn" id="openNotes" type="button" title="Notes" aria-label="Open notes" data-note-toggle></button>
         <a class="task-btn" href="https://mail.google.com" target="_blank" rel="noopener noreferrer" title="Mail"></a>
       </div>
       <button class="launcher-btn" id="startButton" type="button" aria-label="Open menu"></button>
@@ -1141,57 +1138,11 @@
   </div>
 
   <script>
-    const links = [
-      { name: "YouTube", url: "https://www.youtube.com", hint: "Videos", icon: "i-youtube" },
-      { name: "Gmail", url: "https://mail.google.com", hint: "Email", icon: "i-gmail" },
-      { name: "My Drive", url: "file:///G:/My%20Drive/", hint: "Files", icon: "i-drive" },
-      { name: "Bitwarden", url: "https://vault.bitwarden.com", hint: "Passwords", icon: "i-bitwarden" },
-      { name: "ChatGPT", url: "https://chat.openai.com", hint: "AI", icon: "i-chatgpt" },
-      { name: "GitHub", url: "https://github.com", hint: "Code", icon: "i-github" },
-      { name: "Reddit", url: "https://www.reddit.com", hint: "Browse", icon: "i-reddit" }
-    ];
-
-    const focusLines = [
-      "Keep the first task small. Momentum beats pressure.",
-      "One clear step is better than ten vague plans.",
-      "A calm start usually wins the whole afternoon.",
-      "Open what matters. Close what drains attention."
-    ];
-
     const startMenu = document.getElementById("startMenu");
     const startButton = document.getElementById("startButton");
-    const windows = [...document.querySelectorAll("[data-window]")];
-    let topZ = 20;
-
-    function updateClock() {
-      const now = new Date();
-      const time = now.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit"
-      });
-    }
-
-    function renderLinks() {
-      const root = document.getElementById("links");
-      root.innerHTML = "";
-
-      links.forEach((item) => {
-        const a = document.createElement("a");
-        a.className = "link";
-        a.href = item.url;
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        a.innerHTML = `
-          <span class="link-icon ${item.icon}"></span>
-          <span>
-            <strong>${item.name}</strong>
-            <small>${item.hint}</small>
-          </span>
-        `;
-        root.appendChild(a);
-      });
-    }
-
+    const notePanel = document.getElementById("notePanel");
+    const openNotesButton = document.getElementById("openNotes");
+    const closeNotesButton = document.getElementById("closeNotes");
     function handleSearch(event) {
       event.preventDefault();
       const raw = document.getElementById("searchInput").value.trim();
@@ -1230,97 +1181,67 @@
       loadTheme();
     }
 
-    function bringToFront(win) {
-      topZ += 1;
-      win.style.zIndex = topZ;
-    }
-
-    function syncTaskButtons() {
-      windows.forEach((win) => {
-        const name = win.dataset.window;
-        const task = document.querySelector(`[data-task="${name}"]`);
-        if (!task) return;
-        task.classList.toggle("open", !win.classList.contains("hidden"));
-      });
-    }
-
-    function openWindow(name) {
-      const win = document.querySelector(`[data-window="${name}"]`);
-      if (!win) return;
-      win.classList.remove("hidden");
-      bringToFront(win);
-      syncTaskButtons();
-      startMenu.classList.remove("open");
-    }
-
-    function closeWindow(name) {
-      const win = document.querySelector(`[data-window="${name}"]`);
-      if (!win) return;
-      win.classList.add("hidden");
-      syncTaskButtons();
+    function syncActiveStates() {
+      const notesOpen = !notePanel.classList.contains("hidden");
+      openNotesButton.classList.toggle("active", notesOpen);
+      openNotesButton.setAttribute("aria-label", notesOpen ? "Close notes" : "Open notes");
+      startButton.classList.toggle("active", startMenu.classList.contains("open"));
     }
 
     function toggleStartMenu() {
       startMenu.classList.toggle("open");
+      syncActiveStates();
     }
 
-    function enableDragging(win) {
-      const bar = win.querySelector(".titlebar");
-      let dragging = false;
-      let offsetX = 0;
-      let offsetY = 0;
-
-      bar.addEventListener("mousedown", (event) => {
-        if (event.target.closest(".win-btn")) return;
-        dragging = true;
-        bringToFront(win);
-        const rect = win.getBoundingClientRect();
-        offsetX = event.clientX - rect.left;
-        offsetY = event.clientY - rect.top;
-      });
-
-      window.addEventListener("mousemove", (event) => {
-        if (!dragging) return;
-        win.style.left = `${Math.max(10, event.clientX - offsetX)}px`;
-        win.style.top = `${Math.max(10, event.clientY - offsetY)}px`;
-      });
-
-      window.addEventListener("mouseup", () => {
-        dragging = false;
-      });
+    function toggleNotes() {
+      const isHidden = notePanel.classList.toggle("hidden");
+      startMenu.classList.remove("open");
+      if (!isHidden) {
+        document.getElementById("notes").focus();
+      }
+      syncActiveStates();
     }
 
-    updateClock();
-    renderLinks();
+    function closeNotes() {
+      notePanel.classList.add("hidden");
+      syncActiveStates();
+    }
+
+    function closeOpenPanels() {
+      notePanel.classList.add("hidden");
+      startMenu.classList.remove("open");
+      syncActiveStates();
+    }
+
+    function handleShortcuts(event) {
+      const target = event.target;
+      const isTyping = target.matches("input, textarea");
+
+      if (event.key === "Escape") {
+        closeOpenPanels();
+        return;
+      }
+
+      if (isTyping || event.ctrlKey || event.metaKey || event.altKey) return;
+
+      if (event.key === "/") {
+        event.preventDefault();
+        document.getElementById("searchInput").focus();
+      }
+
+      if (event.key.toLowerCase() === "n") {
+        event.preventDefault();
+        toggleNotes();
+      }
+    }
+
     loadNotes();
     loadTheme();
-    setInterval(updateClock, 1000);
+    syncActiveStates();
     document.getElementById("searchForm").addEventListener("submit", handleSearch);
     document.getElementById("themeToggle").addEventListener("click", toggleTheme);
-
-    windows.forEach((win) => {
-      enableDragging(win);
-      win.addEventListener("mousedown", () => bringToFront(win));
-    });
-
-    document.querySelectorAll("[data-open-window]").forEach((item) => {
-      item.addEventListener("click", (event) => {
-        event.preventDefault();
-        openWindow(item.dataset.openWindow);
-      });
-    });
-
-    document.querySelectorAll("[data-close]").forEach((item) => {
-      item.addEventListener("click", () => closeWindow(item.dataset.close));
-    });
-
-    document.querySelectorAll("[data-minimize]").forEach((item) => {
-      item.addEventListener("click", () => closeWindow(item.dataset.minimize));
-    });
-
-    document.querySelectorAll("[data-task]").forEach((item) => {
-      item.addEventListener("click", () => openWindow(item.dataset.task));
-    });
+    openNotesButton.addEventListener("click", toggleNotes);
+    closeNotesButton.addEventListener("click", closeNotes);
 
     startButton.addEventListener("click", (event) => {
       event.stopPropagation();
@@ -1333,7 +1254,10 @@
 
     document.addEventListener("click", () => {
       startMenu.classList.remove("open");
+      syncActiveStates();
     });
+
+    document.addEventListener("keydown", handleShortcuts);
   </script>
 </body>
 </html>
