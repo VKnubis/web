@@ -388,6 +388,7 @@
     .icon-notes { background: linear-gradient(180deg, #fff6cc, #f0d16d); }
     .icon-youtube { background: #ffffff url("youtube.png") center center / 72% 72% no-repeat; }
     .icon-bitwarden { background: #ffffff url("bitwarden.png") center center / 72% 72% no-repeat; }
+    .icon-chatgpt { background: #ffffff url("chatgpt.png") center center / 72% 72% no-repeat; }
 
     .panel {
       border: 1px solid #8db1db;
@@ -520,7 +521,7 @@
     .i-youtube { background: #ffffff url("youtube.png") center center / 72% 72% no-repeat; }
     .i-gmail { background: #ffffff url("gmail.png") center center / 72% 72% no-repeat; }
     .i-drive { background: #ffffff url("google-drive.png") center center / 72% 72% no-repeat; }
-    .i-chatgpt { background: linear-gradient(180deg, #9de2a3, #36a84a); }
+    .i-chatgpt { background: #ffffff url("chatgpt.png") center center / 72% 72% no-repeat; }
     .i-github { background: #ffffff url("github.png") center center / 72% 72% no-repeat; }
     .i-reddit { background: linear-gradient(180deg, #ffb57c, #ef6f1e); }
     .i-search { background: #ffffff url("search-interface-symbol.png") center center / 70% 70% no-repeat; }
@@ -917,6 +918,14 @@
       background: url("youtube.png") center center / 70% 70% no-repeat;
     }
 
+    .task-btn[href*="chatgpt.com"]::before {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 40px;
+      background: url("chatgpt.png") center center / 70% 70% no-repeat;
+    }
+
     .task-btn.open {
       display: flex;
     }
@@ -983,7 +992,8 @@
       .task-btn[href*="mail.google"]::before,
       .task-btn[href*="github.com"]::before,
       .task-btn[href*="bitwarden"]::before,
-      .task-btn[href*="youtube"]::before {
+      .task-btn[href*="youtube"]::before,
+      .task-btn[href*="chatgpt.com"]::before {
         width: 32px;
         height: 32px;
       }
@@ -1112,6 +1122,10 @@
           <span class="menu-icon icon-bitwarden"></span>
           <span>Bitwarden</span>
         </a>
+        <a class="menu-item" href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">
+          <span class="menu-icon icon-chatgpt"></span>
+          <span>ChatGPT</span>
+        </a>
       </div>
     </div>
     <div class="start-footer">
@@ -1132,6 +1146,7 @@
       <div class="task-buttons">
         <a class="task-btn" href="https://github.com" target="_blank" rel="noopener noreferrer" title="Code"></a>
         <a class="task-btn" href="https://vault.bitwarden.com" target="_blank" rel="noopener noreferrer" title="Bitwarden"></a>
+        <a class="task-btn" href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" title="ChatGPT"></a>
         <a class="task-btn" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" title="YouTube"></a>
       </div>
     </div>
