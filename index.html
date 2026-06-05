@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Windows XP Home</title>
+  <title>Life / Death Home</title>
   <style>
     :root {
       --xp-blue-1: #4ea0ff;
@@ -18,6 +18,10 @@
       --xp-green-1: #58c75a;
       --xp-green-2: #27812c;
       --xp-shadow: 0 24px 40px rgba(8, 32, 77, 0.35);
+      --ink: #11181c;
+      --paper: #f7f7f4;
+      --dock-bg: rgba(5, 6, 8, 0.74);
+      --dock-line: rgba(255, 255, 255, 0.16);
     }
 
     * {
@@ -28,6 +32,8 @@
     body {
       margin: 0;
       min-height: 100%;
+      width: 100%;
+      max-width: 100%;
       font-family: Tahoma, "Segoe UI", sans-serif;
     }
 
@@ -46,13 +52,21 @@
     body {
       min-height: 100vh;
       overflow: hidden;
+      overflow-x: hidden;
       background: #10171c;
       position: relative;
       color: #fff;
+      letter-spacing: 0;
     }
 
     body.theme-oled-friendly {
       background: #050608;
+    }
+
+    body.theme-blue-night {
+      --dock-bg: rgba(3, 10, 22, 0.78);
+      --dock-line: rgba(168, 205, 255, 0.2);
+      background: #050a12;
     }
 
     body::before {
@@ -77,6 +91,11 @@
         linear-gradient(155deg, #ececeb 0%, #ececeb 50.4%, #000000 50.6%, #000000 100%);
     }
 
+    body.theme-blue-night .pkg-scene {
+      background:
+        linear-gradient(155deg, #edf3f7 0%, #edf3f7 50.4%, #03111f 50.6%, #03111f 100%);
+    }
+
     .pkg-scene::before {
       content: "";
       position: absolute;
@@ -92,9 +111,9 @@
 
     .pkg-corner {
       position: absolute;
-      width: 34px;
-      height: 34px;
-      opacity: 0.95;
+      width: 42px;
+      height: 42px;
+      opacity: 0.9;
     }
 
     .pkg-corner::before,
@@ -106,49 +125,44 @@
     }
 
     .pkg-corner::before {
-      width: 34px;
-      height: 3px;
+      width: 42px;
+      height: 2px;
       top: 0;
       left: 0;
     }
 
     .pkg-corner::after {
-      width: 3px;
-      height: 34px;
+      width: 2px;
+      height: 42px;
       top: 0;
       left: 0;
     }
 
     .pkg-corner.top-left {
-      top: 18px;
-      left: 6px;
-      color: #12191c;
+      top: 14px;
+      left: 14px;
+      color: var(--ink);
     }
 
     .pkg-corner.top-right {
-      top: 18px;
-      right: 6px;
+      top: 14px;
+      right: 14px;
       transform: rotate(90deg);
-      color: #12191c;
+      color: var(--paper);
     }
 
     .pkg-corner.bottom-left {
-      bottom: 60px;
-      left: 6px;
+      bottom: 76px;
+      left: 14px;
       transform: rotate(-90deg);
-      color: #f4f4f0;
+      color: var(--paper);
     }
 
     .pkg-corner.bottom-right {
-      bottom: 60px;
-      right: 6px;
+      bottom: 76px;
+      right: 14px;
       transform: rotate(180deg);
-      color: #f4f4f0;
-    }
-
-    .pkg-corner.top-right,
-    .pkg-corner.bottom-right {
-      display: none;
+      color: var(--paper);
     }
 
     body.theme-oled-friendly .pkg-corner.top-left,
@@ -163,12 +177,12 @@
 
     .pkg-dot {
       position: absolute;
-      top: 26px;
-      left: 22px;
-      width: 12px;
-      height: 12px;
+      top: 21px;
+      left: 21px;
+      width: 9px;
+      height: 9px;
       border-radius: 999px;
-      background: #12191c;
+      background: var(--ink);
     }
 
     body.theme-oled-friendly .pkg-dot {
@@ -199,20 +213,24 @@
       opacity: 0.98;
       user-select: none;
       pointer-events: none;
+      transform-origin: 50% 50%;
+      will-change: transform, opacity;
+      animation: flower-breathe 9s ease-in-out infinite;
     }
 
     .pkg-flower.top {
       left: 48.15%;
       top: 50.1%;
-      width: min(13.5vw, 360px);
+      width: min(15.2vw, 400px);
       filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.12));
     }
 
     .pkg-flower.bottom {
       left: 51.45%;
       top: 53.1%;
-      width: min(13.8vw, 372px);
+      width: min(15.6vw, 416px);
       filter: drop-shadow(0 3px 10px rgba(255, 255, 255, 0.04));
+      animation-delay: -4.5s;
     }
 
     .pkg-text {
@@ -260,6 +278,19 @@
       box-shadow: none;
     }
 
+    body.theme-blue-night .pkg-text.life {
+      color: #e7f1ff;
+    }
+
+    body.theme-blue-night .pkg-petal.light {
+      background: rgba(208, 229, 255, 0.74);
+      box-shadow: 0 0 10px rgba(124, 178, 255, 0.18);
+    }
+
+    body.theme-blue-night .pkg-petal.dark {
+      background: rgba(31, 55, 78, 0.72);
+    }
+
     .pkg-kanji {
       font-family: "PkgGogh", "Times New Roman", serif;
       font-size: clamp(24px, 2vw, 38px);
@@ -283,8 +314,9 @@
       border-radius: 999px 2px 999px 2px;
       transform: rotate(28deg);
       opacity: 0.75;
-      animation: drift 38s linear infinite;
+      animation: drift 16s ease-in-out infinite alternate;
       pointer-events: none;
+      will-change: transform, opacity;
     }
 
     .pkg-petal.light {
@@ -337,106 +369,79 @@
 
     @keyframes drift {
       0% {
-        transform: translate3d(0, 0, 0) rotate(28deg);
+        opacity: 0.38;
+        transform: translate3d(18px, -20px, 0) rotate(18deg);
       }
       50% {
-        transform: translate3d(-18px, 20px, 0) rotate(80deg);
+        opacity: 0.78;
+        transform: translate3d(-10px, 20px, 0) rotate(96deg);
       }
       100% {
-        transform: translate3d(-34px, 44px, 0) rotate(140deg);
+        opacity: 0.48;
+        transform: translate3d(-48px, 62px, 0) rotate(172deg);
+      }
+    }
+
+    @keyframes flower-breathe {
+      0%,
+      100% {
+        transform: translate(-50%, -50%) rotate(-0.6deg) scale(0.985);
+      }
+      50% {
+        transform: translate(-50%, -51.5%) rotate(0.8deg) scale(1.025);
       }
     }
 
     .desktop {
       position: relative;
-      min-height: calc(100vh - 42px);
-      padding: 22px 20px 64px;
+      min-height: 100vh;
+      padding: 0 20px 112px;
       z-index: 2;
-      border-radius: 20px;
-      margin: 10px;
     }
 
-    .desktop-icons {
-      display: grid;
-      gap: 14px;
-      width: 92px;
-    }
-
-    .desktop-icon {
-      text-align: center;
-      color: #fff;
-      text-decoration: none;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.65);
-      font-size: 12px;
-    }
-
-    .icon-box {
-      width: 48px;
-      height: 48px;
-      margin: 0 auto 6px;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 4px 10px rgba(0, 0, 0, 0.25);
-    }
-
-    .icon-my-drive { background: #ffffff url("google-drive.png") center center / 72% 72% no-repeat; }
-    .icon-browser { background: #ffffff url("search-interface-symbol.png") center center / 68% 68% no-repeat; }
-    .icon-mail { background: #ffffff url("gmail.png") center center / 72% 72% no-repeat; }
-    .icon-code {
-      background: #ffffff url("github.png") center center / 70% 70% no-repeat;
-    }
-    .icon-notes { background: linear-gradient(180deg, #fff6cc, #f0d16d); }
-    .icon-youtube { background: #ffffff url("youtube.png") center center / 72% 72% no-repeat; }
-    .icon-bitwarden { background: #ffffff url("bitwarden.png") center center / 72% 72% no-repeat; }
-    .icon-chatgpt { background: #ffffff url("chatgpt.png") center center / 72% 72% no-repeat; }
-
-    .panel {
-      border: 1px solid #8db1db;
-      border-radius: 12px;
-      overflow: hidden;
-      background: linear-gradient(180deg, #ffffff, #e5effd);
-      box-shadow: inset 0 1px 0 #fff;
-    }
-
-    .panel-head {
-      padding: 10px 12px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #fff;
-      background: linear-gradient(180deg, #4e95f2, #2d72d8);
-    }
-
-    .panel-body {
-      padding: 14px;
-    }
-
-    .xp-button {
-      display: inline-flex;
+    .desktop-shell {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 2px solid #1a6c1e;
-      background: linear-gradient(180deg, var(--xp-green-1), var(--xp-green-2));
-      color: #fff;
-      text-decoration: none;
+      gap: 24px;
+      padding-top: clamp(36px, 5vh, 70px);
+    }
+
+    .search-form {
+      width: clamp(300px, 32vw, 540px);
+      position: relative;
+      display: block;
+    }
+
+    .clock-widget {
+      position: fixed;
+      top: 18px;
+      right: 22px;
+      z-index: 4;
+      display: grid;
+      gap: 2px;
+      min-width: 120px;
+      padding: 9px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      background: rgba(4, 5, 7, 0.24);
+      color: #f7f7f4;
+      text-align: right;
+      backdrop-filter: blur(12px);
+      pointer-events: none;
+    }
+
+    .clock-time {
+      font-family: "PkgSans", Tahoma, sans-serif;
+      font-size: 18px;
       font-weight: 700;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
-      cursor: pointer;
+      line-height: 1;
     }
 
-    .xp-button.secondary {
-      border-color: #8a5b00;
-      background: linear-gradient(180deg, var(--xp-gold-1), var(--xp-gold-2));
-      color: #6d4100;
-    }
-
-    .xp-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: #fff7b6;
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+    .clock-date {
+      font-size: 11px;
+      opacity: 0.68;
     }
 
     form {
@@ -452,6 +457,18 @@
       font: inherit;
     }
 
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     #searchInput,
     textarea {
       border-radius: 8px;
@@ -464,10 +481,107 @@
 
     #searchInput {
       flex: 0 0 auto;
-      width: 280px;
-      padding: 13px 14px 13px 45px;
-      font-size: 16px;
-      background: #fff url("search-interface-symbol.png") 12px center / 20px 20px no-repeat;
+      width: 100%;
+      min-height: 48px;
+      padding: 0 18px 0 48px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.92) url("search-interface-symbol.png") 16px center / 18px 18px no-repeat;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+      color: #11181c;
+      font-size: 14px;
+      transition: background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    }
+
+    #searchInput:focus {
+      background-color: #ffffff;
+      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.13), 0 0 0 3px rgba(255, 255, 255, 0.6);
+      transform: translateY(-1px);
+    }
+
+    .search-suggestions {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100% + 8px);
+      display: grid;
+      gap: 4px;
+      max-height: min(320px, calc(100vh - 180px));
+      overflow: auto;
+      padding: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(16px);
+      z-index: 6;
+    }
+
+    .search-suggestions[hidden] {
+      display: none;
+    }
+
+    .search-suggestion {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 10px;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      color: #11181c;
+      text-align: left;
+      box-shadow: none;
+    }
+
+    .search-suggestion:hover,
+    .search-suggestion.active {
+      background: rgba(17, 24, 28, 0.08);
+    }
+
+    .suggestion-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: rgba(17, 24, 28, 0.08) url("search-interface-symbol.png") center center / 16px 16px no-repeat;
+    }
+
+    .suggestion-icon.history {
+      background: rgba(17, 24, 28, 0.08) url("wirte.png") center center / 18px 18px no-repeat;
+    }
+
+    .suggestion-icon.youtube {
+      background: #ffffff url("youtube.png") center center / 70% 70% no-repeat;
+    }
+
+    .suggestion-icon.github {
+      background: #ffffff url("github.png") center center / 68% 68% no-repeat;
+    }
+
+    .suggestion-copy {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .suggestion-copy span,
+    .suggestion-copy small {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .suggestion-copy span {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .suggestion-copy small {
+      color: rgba(17, 24, 28, 0.58);
+      font-size: 12px;
+      font-weight: 400;
     }
 
     button {
@@ -485,83 +599,10 @@
       outline: none;
     }
 
-    .links {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .link {
-      display: grid;
-      grid-template-columns: 42px 1fr;
-      gap: 10px;
-      align-items: center;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      background: linear-gradient(180deg, #ffffff, #dbeafb);
-      color: var(--xp-text);
-      text-decoration: none;
-      box-shadow: none;
-    }
-
-    .link:hover {
-      background: linear-gradient(180deg, #fff7d3, #ffe39b);
-      border-color: #d89a23;
-    }
-
-    .link-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
-    }
-
-    .i-youtube { background: #ffffff url("youtube.png") center center / 72% 72% no-repeat; }
-    .i-gmail { background: #ffffff url("gmail.png") center center / 72% 72% no-repeat; }
-    .i-drive { background: #ffffff url("google-drive.png") center center / 72% 72% no-repeat; }
-    .i-chatgpt { background: #ffffff url("chatgpt.png") center center / 72% 72% no-repeat; }
-    .i-github { background: #ffffff url("github.png") center center / 72% 72% no-repeat; }
-    .i-reddit { background: linear-gradient(180deg, #ffb57c, #ef6f1e); }
-    .i-search { background: #ffffff url("search-interface-symbol.png") center center / 70% 70% no-repeat; }
-    .i-bitwarden { background: #ffffff url("bitwarden.png") center center / 72% 72% no-repeat; }
-
-    .link strong,
-    .link small {
-      display: block;
-    }
-
-    .link small {
-      color: var(--xp-muted);
-      margin-top: 2px;
-    }
-
-    .status-cards {
-      display: grid;
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    .card {
-      padding: 14px;
-      border-radius: 10px;
-      border: 1px solid #97b8e1;
-      background: linear-gradient(180deg, #ffffff, #e1edfc);
-    }
-
-    .label {
-      color: #5c7ca8;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 8px;
-    }
-
-    .value {
-      font-size: 16px;
-      line-height: 1.45;
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.95);
+      outline-offset: 3px;
     }
 
     textarea {
@@ -579,13 +620,11 @@
     }
 
     .note-panel {
-      width: 25vw;
-      min-width: 220px;
-      max-width: 400px;
+      width: clamp(300px, 32vw, 540px);
       padding: 14px;
       border: 1px solid rgba(255, 255, 255, 0.24);
       border-radius: 8px;
-      background: rgba(14, 16, 18, 0.82);
+      background: rgba(8, 10, 12, 0.82);
       box-shadow: 0 18px 34px rgba(0, 0, 0, 0.28);
       backdrop-filter: blur(12px);
     }
@@ -603,6 +642,28 @@
       color: #f7f7f5;
       font-size: 13px;
       font-weight: 700;
+    }
+
+    .note-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .note-mode {
+      padding: 6px 9px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #f7f7f4;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: none;
+    }
+
+    .note-mode.active {
+      background: #ffffff;
+      color: #11181c;
     }
 
     .note-title {
@@ -639,38 +700,398 @@
       border-color: #3a3f45;
     }
 
+    .notes-preview {
+      min-height: 220px;
+      max-height: 46vh;
+      overflow: auto;
+      padding: 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.94);
+      color: #11181c;
+      line-height: 1.5;
+    }
+
+    .notes-preview.hidden {
+      display: none;
+    }
+
+    .notes-preview p {
+      margin: 0 0 8px;
+    }
+
+    .notes-preview ul {
+      margin: 0 0 8px;
+      padding-left: 20px;
+    }
+
+    .notes-preview li {
+      margin: 4px 0;
+    }
+
+    .preview-heading {
+      margin: 0 0 8px;
+      font-weight: 800;
+    }
+
+    .preview-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 6px 0;
+    }
+
+    .preview-check input {
+      width: 14px;
+      height: 14px;
+      accent-color: #11181c;
+    }
+
+    .settings-panel {
+      width: 100%;
+      max-height: 0;
+      overflow: auto;
+      padding: 0 12px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.055);
+      color: #f7f7f4;
+      opacity: 0;
+      pointer-events: none;
+      transition: max-height 180ms ease, opacity 160ms ease, padding 180ms ease;
+    }
+
+    .settings-panel.hidden {
+      border-color: transparent;
+      border-width: 0;
+      visibility: hidden;
+    }
+
+    .settings-panel:not(.hidden) {
+      max-height: 520px;
+      padding: 12px;
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+    }
+
+    .settings-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-weight: 800;
+    }
+
+    .settings-close {
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #f7f7f4;
+      box-shadow: none;
+    }
+
+    .shortcut-form {
+      display: grid;
+      gap: 10px;
+    }
+
+    .shortcut-field {
+      display: grid;
+      gap: 5px;
+    }
+
+    .shortcut-field span {
+      font-size: 12px;
+      font-weight: 700;
+      opacity: 0.72;
+    }
+
+    .shortcut-field input {
+      width: 100%;
+      min-height: 38px;
+      padding: 8px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.94);
+      color: #11181c;
+      outline: none;
+    }
+
+    .shortcut-field input[type="file"] {
+      padding: 7px;
+      color: #11181c;
+    }
+
+    .shortcut-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .shortcut-add {
+      padding: 9px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 9px;
+      background: #ffffff;
+      color: #11181c;
+      box-shadow: none;
+    }
+
+    .shortcut-error {
+      min-height: 16px;
+      color: #ffdad7;
+      font-size: 12px;
+    }
+
+    .shortcut-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .shortcut-list:empty::before {
+      content: "No custom shortcuts yet.";
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.055);
+      color: rgba(247, 247, 244, 0.68);
+      font-size: 13px;
+    }
+
+    .shortcut-row {
+      display: grid;
+      grid-template-columns: 38px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 8px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    .shortcut-icon,
+    .custom-shortcut-icon {
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #ffffff;
+      color: #11181c;
+      font-family: "PkgSans", Tahoma, sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .shortcut-icon {
+      width: 38px;
+      height: 38px;
+      font-size: 16px;
+    }
+
+    .shortcut-meta {
+      min-width: 0;
+    }
+
+    .shortcut-meta strong,
+    .shortcut-meta small {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .shortcut-meta strong {
+      font-size: 14px;
+    }
+
+    .shortcut-meta small {
+      margin-top: 2px;
+      font-size: 12px;
+      opacity: 0.64;
+    }
+
+    .shortcut-remove {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #f7f7f4;
+      box-shadow: none;
+    }
+
+    .folder-panel {
+      position: fixed;
+      left: 50%;
+      bottom: 86px;
+      width: min(420px, calc(100vw - 24px));
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      background: rgba(7, 9, 11, 0.88);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.44);
+      backdrop-filter: blur(18px);
+      transform: translateX(-50%);
+      z-index: 8;
+    }
+
+    .folder-panel.hidden {
+      display: none;
+    }
+
+    .folder-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 4px 4px 12px;
+      color: #f7f7f4;
+      font-weight: 800;
+    }
+
+    .folder-close {
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #f7f7f4;
+      box-shadow: none;
+    }
+
+    .folder-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .folder-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      padding: 10px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.055);
+      color: #f7f7f4;
+      text-decoration: none;
+      transition: background 140ms ease, color 140ms ease, transform 140ms ease;
+    }
+
+    .folder-link:hover,
+    .folder-link:focus-visible {
+      background: #ffffff;
+      color: #11181c;
+      transform: translateY(-1px);
+    }
+
+    .folder-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.92);
+      color: #11181c;
+      font-family: "PkgSans", Tahoma, sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .folder-icon.google-search {
+      background: #ffffff url("search-interface-symbol.png") center center / 55% 55% no-repeat;
+    }
+
+    .folder-icon.google-mail {
+      background: #ffffff url("gmail.png") center center / 72% 72% no-repeat;
+    }
+
+    .folder-icon.google-drive {
+      background: #ffffff url("google-drive.png") center center / 72% 72% no-repeat;
+    }
+
+    .folder-icon.google-youtube {
+      background: #ffffff url("youtube.png") center center / 72% 72% no-repeat;
+    }
+
+    .folder-icon.proton {
+      background: linear-gradient(135deg, #6d4aff, #8f79ff);
+      color: #ffffff;
+    }
+
+    .folder-label {
+      min-width: 0;
+    }
+
+    .folder-label strong,
+    .folder-label small {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .folder-label strong {
+      font-size: 14px;
+    }
+
+    .folder-label small {
+      margin-top: 2px;
+      font-size: 12px;
+      opacity: 0.64;
+    }
+
     .start-menu {
       position: fixed;
-      left: 6px;
-      bottom: 44px;
-      width: 470px;
-      border-radius: 10px 10px 0 0;
+      left: 50%;
+      bottom: 86px;
+      width: min(390px, calc(100vw - 24px));
+      max-height: min(760px, calc(100vh - 112px));
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: var(--xp-shadow);
-      border: 1px solid #0a2e6b;
+      transform: translateX(-50%);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.44);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(7, 9, 11, 0.88);
+      backdrop-filter: blur(18px);
       display: none;
+      z-index: 8;
     }
 
     .start-menu.open {
       display: block;
     }
 
+    .start-menu.settings-open .start-right > .menu-item:not([data-settings-toggle]) {
+      display: none;
+    }
+
     .start-top {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 18px 18px 16px;
-      background: linear-gradient(180deg, #1c79f0, #0d59ca);
-      color: #fff;
+      padding: 16px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f7f7f4;
       font-weight: 700;
     }
 
     .start-avatar {
       width: 58px;
       height: 58px;
-      border-radius: 12px;
-      background: linear-gradient(180deg, #fff4a9, #efc538);
-      border: 2px solid rgba(255, 255, 255, 0.6);
+      border-radius: 14px;
+      background: #ffffff url("home.png") center center / 76% 76% no-repeat;
+      border: 1px solid rgba(255, 255, 255, 0.24);
     }
 
     .start-top strong,
@@ -690,24 +1111,16 @@
     }
 
     .start-body {
+      background: transparent;
+      color: #f7f7f4;
+      max-height: min(590px, calc(100vh - 240px));
+      overflow: auto;
+      padding: 10px;
+    }
+
+    .start-right {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      background: #fff;
-      color: var(--xp-text);
-    }
-
-    .start-left,
-    .start-right {
-      padding: 14px;
-    }
-
-    .start-left {
-      background: linear-gradient(180deg, #ffffff, #f1f7ff);
-    }
-
-    .start-right {
-      background: linear-gradient(180deg, #dbe9ff, #c0d7fb);
-      border-left: 1px solid #aac5eb;
+      gap: 6px;
     }
 
     .menu-item {
@@ -715,18 +1128,28 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 13px 14px;
+      padding: 10px;
       border: 0;
-      background: transparent;
-      color: var(--xp-text);
+      background: rgba(255, 255, 255, 0.055);
+      color: #f7f7f4;
       text-align: left;
-      border-radius: 8px;
+      text-decoration: none;
+      border-radius: 12px;
       cursor: pointer;
       box-shadow: none;
+      transition: background 140ms ease, color 140ms ease, transform 140ms ease;
     }
 
-    .menu-item:hover {
-      background: linear-gradient(180deg, #fff7d8, #ffe29c);
+    .menu-item:hover,
+    .menu-item:focus-visible {
+      background: #ffffff;
+      color: #11181c;
+      transform: translateY(-1px);
+    }
+
+    .menu-item.active {
+      background: #ffffff;
+      color: #11181c;
     }
 
     .menu-icon {
@@ -734,42 +1157,117 @@
       height: 34px;
       border-radius: 8px;
       border: 1px solid rgba(0, 0, 0, 0.08);
+      flex: 0 0 auto;
     }
 
-    .menu-item span:last-child {
+    .icon-my-drive { background: #ffffff url("google-drive.png") center center / 72% 72% no-repeat; }
+    .icon-mail { background: #ffffff url("gmail.png") center center / 72% 72% no-repeat; }
+    .icon-code { background: #ffffff url("github.png") center center / 70% 70% no-repeat; }
+    .icon-notes { background: #ffffff url("wirte.png") center center / 72% 72% no-repeat; }
+    .icon-youtube { background: #ffffff url("youtube.png") center center / 72% 72% no-repeat; }
+    .icon-chatgpt { background: #ffffff url("chatgpt.png") center center / 72% 72% no-repeat; }
+    .icon-settings {
+      display: grid;
+      place-items: center;
+      background: #ffffff;
+    }
+
+    .icon-settings::before {
+      content: "";
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at center, transparent 0 4px, #11181c 4px 6px, transparent 6px),
+        conic-gradient(from 10deg, #11181c 0 10%, transparent 10% 20%, #11181c 20% 30%, transparent 30% 40%, #11181c 40% 50%, transparent 50% 60%, #11181c 60% 70%, transparent 70% 80%, #11181c 80% 90%, transparent 90% 100%);
+    }
+    .icon-google {
+      background: #ffffff;
+      color: #11181c;
+    }
+
+    .icon-google::before,
+    .task-btn[data-folder="google"]::before {
+      content: "G";
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      font-family: "PkgSans", Tahoma, sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: #11181c;
+    }
+
+    .icon-proton {
+      background: linear-gradient(135deg, #6d4aff, #8f79ff);
+      color: #ffffff;
+    }
+
+    .icon-proton::before,
+    .task-btn[data-folder="proton"]::before {
+      content: "P";
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      font-family: "PkgSans", Tahoma, sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .menu-copy {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .menu-copy span {
       font-size: 15px;
       font-weight: 700;
     }
 
+    .menu-copy small {
+      color: currentColor;
+      font-size: 12px;
+      opacity: 0.64;
+    }
+
     .start-footer {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
       gap: 10px;
-      padding: 12px 14px;
-      background: linear-gradient(180deg, #d4e6ff, #b8d2f8);
-      border-top: 1px solid #9fbde9;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.045);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
     }
 
     .footer-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 9px 14px;
-      border-radius: 999px;
-      border: 2px solid #8a5b00;
-      background: linear-gradient(180deg, var(--xp-gold-1), var(--xp-gold-2));
-      color: #6d4100;
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.08);
+      color: #f7f7f4;
       font-size: 13px;
       font-weight: 700;
     }
 
     .theme-toggle {
-      width: 100%;
+      width: auto;
       justify-content: center;
-      margin-top: 8px;
-      border: 2px solid #385f8f;
-      background: linear-gradient(180deg, #7aa9df, #4671ba);
+      margin-top: 0;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.1);
       color: #ffffff;
+    }
+
+    .footer-status {
+      opacity: 0.62;
     }
 
     .taskbar {
@@ -777,153 +1275,158 @@
       left: 0;
       right: 0;
       bottom: 0;
-      height: 52px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 12px;
-      padding: 8px 12px;
-      background: #020202;
-      border-top: 1px solid #1a1d22;
-      border-left: 0;
-      border-right: 0;
-      border-bottom: 0;
-      border-radius: 0;
-      box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.32);
+      height: 78px;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.3));
       z-index: 5;
+    }
+
+    .taskbar::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 8px;
+      width: min(760px, calc(100vw - 24px));
+      height: 56px;
+      transform: translateX(-50%);
+      border: 1px solid var(--dock-line);
+      border-radius: 18px 18px 0 0;
+      background: var(--dock-bg);
+      box-shadow: 0 -14px 34px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(16px);
     }
 
     .task-center {
       position: absolute;
       left: 50%;
+      bottom: 8px;
       transform: translateX(-50%);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       justify-content: center;
+      height: 56px;
+      z-index: 1;
     }
 
     .launcher-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 100px;
-      height: 100px;
-      border-radius: 20px 20px 0 0;
-      border: 2px solid #26292f;
+      width: 78px;
+      height: 78px;
+      border-radius: 18px 18px 0 0;
+      border: 1px solid rgba(255, 255, 255, 0.18);
       background: #ffffff url("home.png") center center / 75% 75% no-repeat;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
       cursor: pointer;
       font-size: 0;
       font-weight: 700;
       color: #fff;
-      transform: translateY(-24px);
-      margin: 0 5px;
+      transform: translateY(-18px);
+      margin: 0 4px;
     }
 
     .launcher-btn:hover {
-      background: #e6e6e6 url("home.png") center center / 70% 70% no-repeat;
-      border-color: #3a3f45;
-      box-shadow: 0 0 16px rgba(26, 220, 75, 0.3);
+      background: #e6e6e6 url("home.png") center center / 72% 72% no-repeat;
+      border-color: rgba(255, 255, 255, 0.32);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.58);
     }
 
     .launcher-btn.active {
-      background: #dfeee4 url("home.png") center center / 70% 70% no-repeat;
-      border-color: #4da762;
-      box-shadow: 0 0 16px rgba(26, 220, 75, 0.38);
+      background: #dfeee4 url("home.png") center center / 72% 72% no-repeat;
+      border-color: rgba(255, 255, 255, 0.44);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.16), 0 12px 32px rgba(0, 0, 0, 0.58);
     }
 
     .task-buttons {
       display: flex;
-      gap: 8px;
-      overflow: hidden;
+      gap: 6px;
+    }
+
+    .custom-shortcuts {
+      display: flex;
+      gap: 6px;
     }
 
     .task-btn {
-      width: 52px;
-      min-width: 52px;
-      height: 52px;
+      width: 46px;
+      min-width: 46px;
+      height: 46px;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 0;
-      border-radius: 20px 20px 0 0;
-      border: 2px solid #26292f;
-      background: #ffffff;
+      border-radius: 13px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.92);
       color: #fff;
       font-size: 0;
       font-weight: 700;
       white-space: nowrap;
       cursor: pointer;
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
     }
 
     .task-btn:hover {
       background: #e6e6e6;
-      border-color: #3a3f45;
+      border-color: rgba(255, 255, 255, 0.34);
+      transform: translateY(-2px);
     }
 
     .task-btn.active {
       background: #dfeee4;
-      border-color: #4da762;
-      box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.18), 0 0 14px rgba(26, 220, 75, 0.28);
-      transform: translateY(2px);
-    }
-
-    .task-btn[href*="drive.google"]::before,
-    .task-btn[href*="My%20Drive"]::before {
-      content: "";
-      display: block;
-      width: 40px;
-      height: 40px;
-      background: url("google-drive.png") center center / 70% 70% no-repeat;
+      border-color: rgba(255, 255, 255, 0.42);
+      box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.18), 0 0 14px rgba(255, 255, 255, 0.18);
+      transform: translateY(-1px);
     }
 
     .task-btn[data-note-toggle]::before {
       content: "";
       display: block;
-      width: 40px;
-      height: 40px;
+      width: 34px;
+      height: 34px;
       background: url("wirte.png") center center / 70% 70% no-repeat;
     }
 
-    .task-btn[href*="mail.google"]::before {
-      content: "";
-      display: block;
-      width: 40px;
-      height: 40px;
-      background: url("gmail.png") center center / 70% 70% no-repeat;
+    .task-btn[data-folder="google"]::before,
+    .task-btn[data-folder="proton"]::before {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+    }
+
+    .task-btn[data-folder="proton"]::before {
+      background: linear-gradient(135deg, #6d4aff, #8f79ff);
     }
 
     .task-btn[href*="github.com"]::before {
       content: "";
       display: block;
-      width: 40px;
-      height: 40px;
+      width: 34px;
+      height: 34px;
       background: url("github.png") center center / 70% 70% no-repeat;
-    }
-
-    .task-btn[href*="bitwarden"]::before {
-      content: "";
-      display: block;
-      width: 40px;
-      height: 40px;
-      background: url("bitwarden.png") center center / 70% 70% no-repeat;
     }
 
     .task-btn[href*="youtube"]::before {
       content: "";
       display: block;
-      width: 40px;
-      height: 40px;
+      width: 34px;
+      height: 34px;
       background: url("youtube.png") center center / 70% 70% no-repeat;
     }
 
     .task-btn[href*="chatgpt.com"]::before {
       content: "";
       display: block;
-      width: 40px;
-      height: 40px;
+      width: 34px;
+      height: 34px;
       background: url("chatgpt.png") center center / 70% 70% no-repeat;
+    }
+
+    .custom-shortcut-icon {
+      width: 34px;
+      height: 34px;
+      font-size: 15px;
     }
 
     .task-btn.open {
@@ -938,81 +1441,134 @@
       display: none;
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      .pkg-petal {
+        animation-duration: 34s;
+      }
+
+      .pkg-flower {
+        animation-duration: 18s;
+      }
+
+      #searchInput,
+      .menu-item,
+      .task-btn {
+        transition: none;
+      }
+    }
+
     @media (max-width: 900px) {
       body {
-        overflow: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
       }
 
       .desktop {
         display: block;
       }
 
-      .desktop-icons {
-        grid-template-columns: repeat(3, 92px);
-        width: auto;
+      .start-menu {
+        width: min(390px, calc(100vw - 16px));
       }
 
-      .start-menu {
-        width: min(470px, calc(100vw - 12px));
+      .clock-widget {
+        top: 14px;
+        right: auto;
+        left: 64px;
+        min-width: auto;
+        padding: 7px 9px;
+        text-align: left;
+      }
+
+      .clock-time {
+        font-size: 15px;
+      }
+
+      .clock-date {
+        display: none;
       }
 
       .note-panel,
       #searchForm {
-        width: min(420px, calc(100vw - 40px)) !important;
+        width: min(420px, calc(100vw - 40px));
       }
     }
 
     @media (max-width: 640px) {
-      .links {
-        grid-template-columns: 1fr;
+      .desktop {
+        padding-inline: 14px;
+      }
+
+      .taskbar {
+        height: 70px;
+      }
+
+      .taskbar::before {
+        bottom: 6px;
+        width: calc(100vw - 12px);
+        height: 50px;
+        border-radius: 16px 16px 0 0;
       }
 
       .task-center {
-        gap: 6px;
-        width: 100%;
-        justify-content: space-between;
-        padding: 0 8px;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 6px;
+        transform: none !important;
+        gap: 3px;
+        width: 100vw;
+        height: 50px;
+        padding: 0 6px;
+        justify-content: center;
       }
 
       .task-buttons {
-        gap: 4px;
+        gap: 2px;
+      }
+
+      .custom-shortcuts {
+        max-width: 86px;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      .custom-shortcuts::-webkit-scrollbar {
+        display: none;
       }
 
       .task-btn {
-        width: 42px;
-        min-width: 42px;
-        height: 46px;
-        border-radius: 14px 14px 0 0;
+        width: 36px;
+        min-width: 36px;
+        height: 38px;
+        border-radius: 11px;
+      }
+
+      .task-btn[href*="youtube"] {
+        display: none;
       }
 
       .task-btn::before,
-      .task-btn[href*="drive.google"]::before,
-      .task-btn[href*="My%20Drive"]::before,
       .task-btn[data-note-toggle]::before,
-      .task-btn[href*="mail.google"]::before,
+      .task-btn[data-folder="google"]::before,
+      .task-btn[data-folder="proton"]::before,
       .task-btn[href*="github.com"]::before,
-      .task-btn[href*="bitwarden"]::before,
       .task-btn[href*="youtube"]::before,
-      .task-btn[href*="chatgpt.com"]::before {
-        width: 32px;
-        height: 32px;
+      .task-btn[href*="chatgpt.com"]::before,
+      .custom-shortcut-icon {
+        width: 28px;
+        height: 28px;
       }
 
       .launcher-btn {
-        width: 72px;
-        height: 78px;
-        border-radius: 16px 16px 0 0;
-        transform: translateY(-18px);
-        margin: 0 2px;
+        width: 58px;
+        height: 64px;
+        border-radius: 15px 15px 0 0;
+        transform: translateY(-14px);
+        margin: 0;
       }
 
-      .start-body {
-        grid-template-columns: 1fr;
-      }
-
-      .start-right {
-        border-left: 0;
-        border-top: 1px solid #aac5eb;
+      .start-menu {
+        bottom: 76px;
       }
 
       .start-footer {
@@ -1077,78 +1633,184 @@
     <span class="pkg-petal light p36"></span>
   </div>
 
+  <div class="clock-widget" aria-live="polite">
+    <time class="clock-time" id="clockTime"></time>
+    <span class="clock-date" id="clockDate"></span>
+  </div>
+
   <main class="desktop">
-    <div style="width:100%;display:flex;flex-direction:column;align-items:center;margin-top:40px;gap:32px;">
-      <form id="searchForm" style="width:25vw;min-width:220px;max-width:400px;">
-        <input id="searchInput" type="text" placeholder="Search Google or type a website" autocomplete="off" style="width:100%;padding-left:40px;background:#fff url('search-interface-symbol.png') 12px center / 20px 20px no-repeat;">
+    <div class="desktop-shell">
+      <form id="searchForm" class="search-form" role="search">
+        <label class="sr-only" for="searchInput">Search Google or type a website</label>
+        <input id="searchInput" type="text" placeholder="Search Google or type a website" autocomplete="off" aria-autocomplete="list" aria-controls="searchSuggestions" aria-expanded="false">
+        <div class="search-suggestions" id="searchSuggestions" role="listbox" aria-label="Search suggestions" hidden></div>
       </form>
       <div class="note-panel hidden" id="notePanel">
         <div class="note-panel-head">
           <span class="note-title">Notes</span>
-          <button class="note-close" id="closeNotes" type="button" aria-label="Close notes">x</button>
+          <div class="note-actions">
+            <button class="note-mode active" type="button" data-note-mode="write">Write</button>
+            <button class="note-mode" type="button" data-note-mode="preview">Preview</button>
+            <button class="note-close" id="closeNotes" type="button" aria-label="Close notes">x</button>
+          </div>
         </div>
-        <textarea id="notes" placeholder="Write reminders, plans, or anything you want to keep on your homepage." style="width:100%;min-height:120px;"></textarea>
-        <div class="note-hint" style="color:#aaa;font-size:12px;margin-top:4px;">Notes save automatically on this computer.</div>
+        <textarea id="notes" aria-label="Homepage notes" placeholder="Write reminders, plans, or anything you want to keep on your homepage."></textarea>
+        <div class="notes-preview hidden" id="notesPreview" aria-label="Notes preview"></div>
+        <div class="note-hint">Notes save automatically on this computer.</div>
       </div>
     </div>
   </main>
 
-  <div class="start-menu" id="startMenu">
+  <section class="folder-panel hidden" id="googleFolder" data-folder-panel="google" aria-label="Google stuff">
+    <div class="folder-head">
+      <span>Google Stuff</span>
+      <button class="folder-close" type="button" data-folder-close aria-label="Close Google folder">x</button>
+    </div>
+    <div class="folder-grid">
+      <a class="folder-link" href="https://www.google.com" target="_blank" rel="noopener noreferrer">
+        <span class="folder-icon google-search" aria-hidden="true"></span>
+        <span class="folder-label"><strong>Google</strong><small>Search</small></span>
+      </a>
+      <a class="folder-link" href="https://mail.google.com" target="_blank" rel="noopener noreferrer">
+        <span class="folder-icon google-mail" aria-hidden="true"></span>
+        <span class="folder-label"><strong>Gmail</strong><small>Inbox</small></span>
+      </a>
+      <a class="folder-link" href="https://drive.google.com/drive/my-drive" target="_blank" rel="noopener noreferrer">
+        <span class="folder-icon google-drive" aria-hidden="true"></span>
+        <span class="folder-label"><strong>Drive</strong><small>Files</small></span>
+      </a>
+      <a class="folder-link" href="https://calendar.google.com" target="_blank" rel="noopener noreferrer">
+        <span class="folder-icon google" aria-hidden="true">C</span>
+        <span class="folder-label"><strong>Calendar</strong><small>Schedule</small></span>
+      </a>
+      <a class="folder-link" href="https://keep.google.com" target="_blank" rel="noopener noreferrer">
+        <span class="folder-icon google" aria-hidden="true">K</span>
+        <span class="folder-label"><strong>Keep</strong><small>Quick notes</small></span>
+      </a>
+      <a class="folder-link" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+        <span class="folder-icon google-youtube" aria-hidden="true"></span>
+        <span class="folder-label"><strong>YouTube</strong><small>Video</small></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="folder-panel hidden" id="protonFolder" data-folder-panel="proton" aria-label="Proton stuff">
+    <div class="folder-head">
+      <span>Proton Stuff</span>
+      <button class="folder-close" type="button" data-folder-close aria-label="Close Proton folder">x</button>
+    </div>
+    <div class="folder-grid">
+      <a class="folder-link" href="https://mail.proton.me" target="_blank" rel="noopener noreferrer">
+        <span class="folder-icon proton" aria-hidden="true">M</span>
+        <span class="folder-label"><strong>Mail</strong><small>Encrypted inbox</small></span>
+      </a>
+      <a class="folder-link" href="https://drive.proton.me" target="_blank" rel="noopener noreferrer">
+        <span class="folder-icon proton" aria-hidden="true">D</span>
+        <span class="folder-label"><strong>Drive</strong><small>Private files</small></span>
+      </a>
+      <a class="folder-link" href="https://calendar.proton.me" target="_blank" rel="noopener noreferrer">
+        <span class="folder-icon proton" aria-hidden="true">C</span>
+        <span class="folder-label"><strong>Calendar</strong><small>Schedule</small></span>
+      </a>
+      <a class="folder-link" href="https://pass.proton.me" target="_blank" rel="noopener noreferrer">
+        <span class="folder-icon proton" aria-hidden="true">P</span>
+        <span class="folder-label"><strong>Pass</strong><small>Passwords</small></span>
+      </a>
+      <a class="folder-link" href="https://account.proton.me/vpn" target="_blank" rel="noopener noreferrer">
+        <span class="folder-icon proton" aria-hidden="true">V</span>
+        <span class="folder-label"><strong>VPN</strong><small>Account</small></span>
+      </a>
+      <a class="folder-link" href="https://account.proton.me" target="_blank" rel="noopener noreferrer">
+        <span class="folder-icon proton" aria-hidden="true">A</span>
+        <span class="folder-label"><strong>Account</strong><small>Security</small></span>
+      </a>
+    </div>
+  </section>
+
+  <div class="start-menu" id="startMenu" aria-label="Quick actions">
     <div class="start-top">
-      <div class="start-avatar"></div>
+      <div class="start-avatar" aria-hidden="true"></div>
       <div>
         <strong>Welcome</strong>
-        <small>Choose a program</small>
+        <small>Choose a quick action</small>
       </div>
     </div>
     <div class="start-body">
-      <div class="start-left">
-        <!-- Removed openable window buttons -->
-      </div>
       <div class="start-right">
-        <a class="menu-item" href="https://drive.google.com/drive/my-drive" target="_blank" rel="noopener noreferrer">
-          <span class="menu-icon icon-my-drive"></span>
-          <span>My Drive</span>
-        </a>
-        <a class="menu-item" href="https://mail.google.com" target="_blank" rel="noopener noreferrer">
-          <span class="menu-icon icon-mail"></span>
-          <span>Mail</span>
-        </a>
+        <button class="menu-item" type="button" data-folder-toggle data-folder="google" aria-controls="googleFolder" aria-expanded="false">
+          <span class="menu-icon icon-google" aria-hidden="true"></span>
+          <span class="menu-copy"><span>Google Stuff</span><small>Search, mail, drive, video</small></span>
+        </button>
+        <button class="menu-item" type="button" data-folder-toggle data-folder="proton" aria-controls="protonFolder" aria-expanded="false">
+          <span class="menu-icon icon-proton" aria-hidden="true"></span>
+          <span class="menu-copy"><span>Proton Stuff</span><small>Mail, drive, pass, VPN</small></span>
+        </button>
+        <button class="menu-item" type="button" data-note-toggle aria-controls="notePanel" aria-expanded="false">
+          <span class="menu-icon icon-notes" aria-hidden="true"></span>
+          <span class="menu-copy"><span>Notes</span><small>Local scratchpad</small></span>
+        </button>
         <a class="menu-item" href="https://github.com" target="_blank" rel="noopener noreferrer">
-          <span class="menu-icon icon-code"></span>
-          <span>GitHub</span>
-        </a>
-        <a class="menu-item" href="https://vault.bitwarden.com" target="_blank" rel="noopener noreferrer">
-          <span class="menu-icon icon-bitwarden"></span>
-          <span>Bitwarden</span>
+          <span class="menu-icon icon-code" aria-hidden="true"></span>
+          <span class="menu-copy"><span>GitHub</span><small>Code workspace</small></span>
         </a>
         <a class="menu-item" href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">
-          <span class="menu-icon icon-chatgpt"></span>
-          <span>ChatGPT</span>
+          <span class="menu-icon icon-chatgpt" aria-hidden="true"></span>
+          <span class="menu-copy"><span>ChatGPT</span><small>AI assistant</small></span>
         </a>
+        <button class="menu-item" type="button" data-settings-toggle aria-controls="settingsPanel" aria-expanded="false">
+          <span class="menu-icon icon-settings" aria-hidden="true"></span>
+          <span class="menu-copy"><span>Custom Shortcuts</span><small>Add your own dock buttons</small></span>
+        </button>
+        <section class="settings-panel hidden" id="settingsPanel" aria-label="Shortcut settings">
+          <div class="settings-head">
+            <span>Custom Shortcuts</span>
+            <button class="settings-close" id="closeSettings" type="button" aria-label="Close settings">x</button>
+          </div>
+          <form class="shortcut-form" id="shortcutForm">
+            <label class="shortcut-field">
+              <span>Name</span>
+              <input id="shortcutName" type="text" maxlength="24" autocomplete="off" placeholder="Example: Roblox">
+            </label>
+            <label class="shortcut-field">
+              <span>Website</span>
+              <input id="shortcutUrl" type="text" autocomplete="off" placeholder="https://www.roblox.com">
+            </label>
+            <label class="shortcut-field">
+              <span>Icon text</span>
+              <input id="shortcutIconText" type="text" maxlength="2" autocomplete="off" placeholder="R">
+            </label>
+            <label class="shortcut-field">
+              <span>Icon image</span>
+              <input id="shortcutIconFile" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml">
+            </label>
+            <div class="shortcut-actions">
+              <button class="shortcut-add" type="submit">Add Shortcut</button>
+            </div>
+            <div class="shortcut-error" id="shortcutError" role="status"></div>
+          </form>
+          <div class="shortcut-list" id="shortcutList"></div>
+        </section>
       </div>
     </div>
     <div class="start-footer">
       <button class="footer-btn theme-toggle" id="themeToggle" type="button">Vibrant Dark</button>
-      <div class="footer-btn">Log Off</div>
-      <div class="footer-btn">Turn Off</div>
+      <span class="footer-btn footer-status">Local Home</span>
     </div>
   </div>
 
   <div class="taskbar">
     <div class="task-center">
       <div class="task-buttons">
-        <a class="task-btn" href="https://drive.google.com/drive/my-drive" target="_blank" rel="noopener noreferrer" title="My Drive"></a>
-        <button class="task-btn" id="openNotes" type="button" title="Notes" aria-label="Open notes" data-note-toggle></button>
-        <a class="task-btn" href="https://mail.google.com" target="_blank" rel="noopener noreferrer" title="Mail"></a>
+        <button class="task-btn" type="button" title="Google Stuff" aria-label="Open Google stuff" aria-controls="googleFolder" aria-expanded="false" data-folder-toggle data-folder="google"></button>
+        <button class="task-btn" id="openNotes" type="button" title="Notes" aria-label="Open notes" aria-controls="notePanel" aria-expanded="false" data-note-toggle></button>
+        <button class="task-btn" type="button" title="Proton Stuff" aria-label="Open Proton stuff" aria-controls="protonFolder" aria-expanded="false" data-folder-toggle data-folder="proton"></button>
       </div>
-      <button class="launcher-btn" id="startButton" type="button" aria-label="Open menu"></button>
+      <button class="launcher-btn" id="startButton" type="button" aria-label="Open menu" aria-controls="startMenu" aria-expanded="false"></button>
       <div class="task-buttons">
-        <a class="task-btn" href="https://github.com" target="_blank" rel="noopener noreferrer" title="Code"></a>
-        <a class="task-btn" href="https://vault.bitwarden.com" target="_blank" rel="noopener noreferrer" title="Bitwarden"></a>
-        <a class="task-btn" href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" title="ChatGPT"></a>
-        <a class="task-btn" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" title="YouTube"></a>
+        <a class="task-btn" href="https://github.com" target="_blank" rel="noopener noreferrer" title="Code" aria-label="Open GitHub"></a>
+        <a class="task-btn" href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" title="ChatGPT" aria-label="Open ChatGPT"></a>
       </div>
+      <div class="custom-shortcuts" id="customShortcuts" aria-label="Custom shortcuts"></div>
     </div>
   </div>
 
@@ -1156,63 +1818,541 @@
     const startMenu = document.getElementById("startMenu");
     const startButton = document.getElementById("startButton");
     const notePanel = document.getElementById("notePanel");
-    const openNotesButton = document.getElementById("openNotes");
+    const noteToggleButtons = document.querySelectorAll("[data-note-toggle]");
     const closeNotesButton = document.getElementById("closeNotes");
-    function handleSearch(event) {
+    const searchForm = document.getElementById("searchForm");
+    const searchInput = document.getElementById("searchInput");
+    const searchSuggestions = document.getElementById("searchSuggestions");
+    const clockTime = document.getElementById("clockTime");
+    const clockDate = document.getElementById("clockDate");
+    const notesInput = document.getElementById("notes");
+    const notesPreview = document.getElementById("notesPreview");
+    const noteModeButtons = document.querySelectorAll("[data-note-mode]");
+    const folderToggleButtons = document.querySelectorAll("[data-folder-toggle]");
+    const folderPanels = document.querySelectorAll("[data-folder-panel]");
+    const folderCloseButtons = document.querySelectorAll("[data-folder-close]");
+    const settingsPanel = document.getElementById("settingsPanel");
+    const settingsToggleButton = document.querySelector("[data-settings-toggle]");
+    const closeSettingsButton = document.getElementById("closeSettings");
+    const shortcutForm = document.getElementById("shortcutForm");
+    const shortcutName = document.getElementById("shortcutName");
+    const shortcutUrl = document.getElementById("shortcutUrl");
+    const shortcutIconText = document.getElementById("shortcutIconText");
+    const shortcutIconFile = document.getElementById("shortcutIconFile");
+    const shortcutError = document.getElementById("shortcutError");
+    const shortcutList = document.getElementById("shortcutList");
+    const customShortcuts = document.getElementById("customShortcuts");
+    const SEARCH_HISTORY_KEY = "homepage-search-history";
+    const SEARCH_HISTORY_LIMIT = 12;
+    const CUSTOM_SHORTCUTS_KEY = "homepage-custom-shortcuts";
+    const CUSTOM_ICON_MAX_BYTES = 512 * 1024;
+    const THEMES = ["default", "oled-friendly", "blue-night"];
+    const THEME_LABELS = {
+      "default": "Theme: Default",
+      "oled-friendly": "Theme: OLED",
+      "blue-night": "Theme: Night"
+    };
+    let currentSuggestions = [];
+    let activeSuggestionIndex = -1;
+    let currentNoteMode = "write";
+
+    function escapeHtml(value) {
+      return value.replace(/[&<>"']/g, (character) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#039;"
+      }[character]));
+    }
+
+    function looksLikeUrl(value) {
+      return /^https?:\/\//i.test(value) || /^[\w-]+(\.[\w-]+)+([/?#].*)?$/i.test(value);
+    }
+
+    function getSearchHistory() {
+      try {
+        const history = JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY) || "[]");
+        return Array.isArray(history) ? history.filter((item) => typeof item === "string") : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveSearchHistory(query) {
+      const clean = query.trim();
+      if (!clean) return;
+
+      const lower = clean.toLowerCase();
+      const nextHistory = [
+        clean,
+        ...getSearchHistory().filter((item) => item.toLowerCase() !== lower)
+      ].slice(0, SEARCH_HISTORY_LIMIT);
+
+      localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(nextHistory));
+    }
+
+    function getCustomShortcuts() {
+      try {
+        const shortcuts = JSON.parse(localStorage.getItem(CUSTOM_SHORTCUTS_KEY) || "[]");
+        return Array.isArray(shortcuts) ? shortcuts.filter((shortcut) => shortcut && shortcut.name && shortcut.url) : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveCustomShortcuts(shortcuts) {
+      localStorage.setItem(CUSTOM_SHORTCUTS_KEY, JSON.stringify(shortcuts));
+    }
+
+    function normalizeUrl(value) {
+      const clean = value.trim();
+      if (!clean) return "";
+      return /^https?:\/\//i.test(clean) ? clean : `https://${clean}`;
+    }
+
+    function getShortcutIconText(shortcut) {
+      return (shortcut.iconText || shortcut.name || "?").trim().slice(0, 2).toUpperCase();
+    }
+
+    function applyShortcutIcon(element, shortcut) {
+      element.textContent = shortcut.iconImage ? "" : getShortcutIconText(shortcut);
+      element.style.backgroundImage = shortcut.iconImage ? `url("${shortcut.iconImage}")` : "";
+    }
+
+    function readIconFile(file) {
+      return new Promise((resolve, reject) => {
+        if (!file) {
+          resolve("");
+          return;
+        }
+
+        if (file.size > CUSTOM_ICON_MAX_BYTES) {
+          reject(new Error("Icon image is too large. Use an image under 512 KB."));
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.addEventListener("load", () => resolve(reader.result));
+        reader.addEventListener("error", () => reject(new Error("Could not read that icon image.")));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function renderCustomShortcuts() {
+      const shortcuts = getCustomShortcuts();
+      customShortcuts.innerHTML = "";
+      shortcutList.innerHTML = "";
+
+      shortcuts.forEach((shortcut) => {
+        const dockLink = document.createElement("a");
+        dockLink.className = "task-btn custom-shortcut";
+        dockLink.href = shortcut.url;
+        dockLink.target = "_blank";
+        dockLink.rel = "noopener noreferrer";
+        dockLink.title = shortcut.name;
+        dockLink.setAttribute("aria-label", `Open ${shortcut.name}`);
+
+        const dockIcon = document.createElement("span");
+        dockIcon.className = "custom-shortcut-icon";
+        applyShortcutIcon(dockIcon, shortcut);
+        dockLink.appendChild(dockIcon);
+        customShortcuts.appendChild(dockLink);
+
+        const row = document.createElement("div");
+        row.className = "shortcut-row";
+
+        const rowIcon = document.createElement("span");
+        rowIcon.className = "shortcut-icon";
+        applyShortcutIcon(rowIcon, shortcut);
+
+        const meta = document.createElement("span");
+        meta.className = "shortcut-meta";
+        meta.innerHTML = `<strong>${escapeHtml(shortcut.name)}</strong><small>${escapeHtml(shortcut.url)}</small>`;
+
+        const removeButton = document.createElement("button");
+        removeButton.className = "shortcut-remove";
+        removeButton.type = "button";
+        removeButton.textContent = "x";
+        removeButton.setAttribute("aria-label", `Remove ${shortcut.name}`);
+        removeButton.addEventListener("click", () => {
+          saveCustomShortcuts(getCustomShortcuts().filter((item) => item.id !== shortcut.id));
+          renderCustomShortcuts();
+        });
+
+        row.append(rowIcon, meta, removeButton);
+        shortcutList.appendChild(row);
+      });
+    }
+
+    async function handleShortcutSubmit(event) {
       event.preventDefault();
-      const raw = document.getElementById("searchInput").value.trim();
-      if (!raw) return;
+      shortcutError.textContent = "";
 
-      const looksLikeUrl = /^https?:\/\//i.test(raw) || /^[\w-]+\.[a-z]{2,}/i.test(raw);
-      const target = /^https?:\/\//i.test(raw)
-        ? raw
-        : looksLikeUrl
-          ? `https://${raw}`
-          : `https://www.google.com/search?q=${encodeURIComponent(raw)}`;
+      const name = shortcutName.value.trim();
+      const url = normalizeUrl(shortcutUrl.value);
+      const iconText = shortcutIconText.value.trim();
 
+      if (!name || !url) {
+        shortcutError.textContent = "Name and website are required.";
+        return;
+      }
+
+      try {
+        new URL(url);
+      } catch (error) {
+        shortcutError.textContent = "Website needs to be a valid URL.";
+        return;
+      }
+
+      try {
+        const iconImage = await readIconFile(shortcutIconFile.files[0]);
+        const shortcuts = getCustomShortcuts();
+        shortcuts.push({
+          id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+          name,
+          url,
+          iconText: iconText || name.slice(0, 1),
+          iconImage
+        });
+        saveCustomShortcuts(shortcuts);
+        shortcutForm.reset();
+        renderCustomShortcuts();
+      } catch (error) {
+        shortcutError.textContent = error.message;
+      }
+    }
+
+    function buildSearchTarget(query, type = "default") {
+      const clean = query.trim();
+
+      if (type === "youtube") {
+        return `https://www.youtube.com/results?search_query=${encodeURIComponent(clean)}`;
+      }
+
+      if (type === "github") {
+        return `https://github.com/search?q=${encodeURIComponent(clean)}`;
+      }
+
+      if (looksLikeUrl(clean)) {
+        return /^https?:\/\//i.test(clean) ? clean : `https://${clean}`;
+      }
+
+      return `https://www.google.com/search?q=${encodeURIComponent(clean)}`;
+    }
+
+    function makeSuggestion(kind, title, detail, value, target) {
+      return { kind, title, detail, value, target };
+    }
+
+    function getSearchSuggestions(query) {
+      const clean = query.trim();
+      const history = getSearchHistory();
+
+      if (!clean) {
+        return history.slice(0, 5).map((item) => makeSuggestion(
+          "history",
+          item,
+          "Recent search",
+          item,
+          buildSearchTarget(item)
+        ));
+      }
+
+      const lower = clean.toLowerCase();
+      const historyMatches = history
+        .filter((item) => item.toLowerCase().includes(lower) && item.toLowerCase() !== lower)
+        .slice(0, 3)
+        .map((item) => makeSuggestion(
+          "history",
+          item,
+          "Recent search",
+          item,
+          buildSearchTarget(item)
+        ));
+
+      const primarySuggestion = looksLikeUrl(clean)
+        ? makeSuggestion("search", `Open ${clean}`, "Website", clean, buildSearchTarget(clean))
+        : makeSuggestion("search", `Search Google for "${clean}"`, "Google", clean, buildSearchTarget(clean));
+
+      return [
+        primarySuggestion,
+        ...historyMatches,
+        makeSuggestion("youtube", `Search YouTube for "${clean}"`, "YouTube", clean, buildSearchTarget(clean, "youtube")),
+        makeSuggestion("github", `Search GitHub for "${clean}"`, "GitHub", clean, buildSearchTarget(clean, "github"))
+      ].slice(0, 6);
+    }
+
+    function hideSearchSuggestions() {
+      searchSuggestions.hidden = true;
+      searchInput.setAttribute("aria-expanded", "false");
+      searchInput.removeAttribute("aria-activedescendant");
+      activeSuggestionIndex = -1;
+    }
+
+    function setActiveSuggestion(index) {
+      activeSuggestionIndex = index;
+
+      searchSuggestions.querySelectorAll(".search-suggestion").forEach((button, buttonIndex) => {
+        const isActive = buttonIndex === activeSuggestionIndex;
+        button.classList.toggle("active", isActive);
+        button.setAttribute("aria-selected", String(isActive));
+      });
+
+      if (activeSuggestionIndex >= 0) {
+        searchInput.setAttribute("aria-activedescendant", `searchSuggestion${activeSuggestionIndex}`);
+      } else {
+        searchInput.removeAttribute("aria-activedescendant");
+      }
+    }
+
+    function renderSearchSuggestions() {
+      currentSuggestions = getSearchSuggestions(searchInput.value);
+      searchSuggestions.innerHTML = "";
+      activeSuggestionIndex = -1;
+
+      if (!currentSuggestions.length) {
+        hideSearchSuggestions();
+        return;
+      }
+
+      currentSuggestions.forEach((suggestion, index) => {
+        const button = document.createElement("button");
+        button.className = "search-suggestion";
+        button.type = "button";
+        button.id = `searchSuggestion${index}`;
+        button.role = "option";
+        button.setAttribute("aria-selected", "false");
+        button.innerHTML = `
+          <span class="suggestion-icon ${escapeHtml(suggestion.kind)}" aria-hidden="true"></span>
+          <span class="suggestion-copy">
+            <span>${escapeHtml(suggestion.title)}</span>
+            <small>${escapeHtml(suggestion.detail)}</small>
+          </span>
+        `;
+
+        button.addEventListener("mousedown", (event) => event.preventDefault());
+        button.addEventListener("click", () => runSuggestion(index));
+        searchSuggestions.appendChild(button);
+      });
+
+      searchSuggestions.hidden = false;
+      searchInput.setAttribute("aria-expanded", "true");
+    }
+
+    function runSearch(query, target = buildSearchTarget(query)) {
+      const clean = query.trim();
+      if (!clean) return;
+
+      saveSearchHistory(clean);
+      hideSearchSuggestions();
       window.open(target, "_blank", "noopener,noreferrer");
     }
 
+    function runSuggestion(index) {
+      const suggestion = currentSuggestions[index];
+      if (!suggestion) return;
+
+      searchInput.value = suggestion.value;
+      runSearch(suggestion.value, suggestion.target);
+    }
+
+    function handleSearch(event) {
+      event.preventDefault();
+      const raw = searchInput.value.trim();
+      if (!raw) return;
+
+      if (activeSuggestionIndex >= 0) {
+        runSuggestion(activeSuggestionIndex);
+        return;
+      }
+
+      runSearch(raw);
+    }
+
+    function updateClock() {
+      const now = new Date();
+      clockTime.dateTime = now.toISOString();
+      clockTime.textContent = new Intl.DateTimeFormat([], {
+        hour: "2-digit",
+        minute: "2-digit"
+      }).format(now);
+      clockDate.textContent = new Intl.DateTimeFormat([], {
+        weekday: "short",
+        month: "short",
+        day: "numeric"
+      }).format(now);
+    }
+
+    function renderNotesPreview() {
+      const lines = notesInput.value.split(/\r?\n/);
+
+      if (!notesInput.value.trim()) {
+        notesPreview.innerHTML = "<p>No notes yet.</p>";
+        return;
+      }
+
+      const html = lines.map((line) => {
+        const heading = line.match(/^#{1,3}\s+(.+)/);
+        const check = line.match(/^-\s+\[(x| )\]\s+(.+)/i);
+        const bullet = line.match(/^-\s+(.+)/);
+
+        if (!line.trim()) return "<br>";
+
+        if (heading) {
+          return `<div class="preview-heading">${escapeHtml(heading[1])}</div>`;
+        }
+
+        if (check) {
+          const checked = check[1].toLowerCase() === "x" ? " checked" : "";
+          return `<label class="preview-check"><input type="checkbox" disabled${checked}><span>${escapeHtml(check[2])}</span></label>`;
+        }
+
+        if (bullet) {
+          return `<ul><li>${escapeHtml(bullet[1])}</li></ul>`;
+        }
+
+        return `<p>${escapeHtml(line)}</p>`;
+      }).join("");
+
+      notesPreview.innerHTML = html;
+    }
+
+    function setNoteMode(mode) {
+      currentNoteMode = mode;
+      const isPreview = mode === "preview";
+      notesInput.hidden = isPreview;
+      notesPreview.classList.toggle("hidden", !isPreview);
+
+      noteModeButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.noteMode === mode);
+      });
+
+      if (isPreview) {
+        renderNotesPreview();
+      } else {
+        notesInput.focus();
+      }
+    }
+
     function loadNotes() {
-      const notes = document.getElementById("notes");
-      notes.value = localStorage.getItem("homepage-notes") || "";
-      notes.addEventListener("input", () => {
-        localStorage.setItem("homepage-notes", notes.value);
+      notesInput.value = localStorage.getItem("homepage-notes") || "";
+      renderNotesPreview();
+      notesInput.addEventListener("input", () => {
+        localStorage.setItem("homepage-notes", notesInput.value);
+        renderNotesPreview();
       });
     }
 
     function loadTheme() {
       const theme = localStorage.getItem("homepage-theme") || "default";
       document.body.classList.toggle("theme-oled-friendly", theme === "oled-friendly");
+      document.body.classList.toggle("theme-blue-night", theme === "blue-night");
       const toggle = document.getElementById("themeToggle");
       if (toggle) {
-        toggle.textContent = theme === "oled-friendly" ? "OLED Friendly On" : "OLED Friendly";
+        toggle.textContent = THEME_LABELS[theme] || THEME_LABELS.default;
       }
     }
 
     function toggleTheme() {
-      const isDark = document.body.classList.toggle("theme-oled-friendly");
-      localStorage.setItem("homepage-theme", isDark ? "oled-friendly" : "default");
+      const currentTheme = localStorage.getItem("homepage-theme") || "default";
+      const nextTheme = THEMES[(THEMES.indexOf(currentTheme) + 1) % THEMES.length] || "default";
+      localStorage.setItem("homepage-theme", nextTheme);
       loadTheme();
+    }
+
+    function closeFolders() {
+      folderPanels.forEach((panel) => panel.classList.add("hidden"));
+    }
+
+    function closeSettings() {
+      settingsPanel.classList.add("hidden");
+      syncActiveStates();
+    }
+
+    function getOpenFolderName() {
+      const openFolder = Array.from(folderPanels).find((panel) => !panel.classList.contains("hidden"));
+      return openFolder ? openFolder.dataset.folderPanel : "";
+    }
+
+    function toggleFolder(folderName) {
+      const targetPanel = document.querySelector(`[data-folder-panel="${folderName}"]`);
+      const isOpen = targetPanel && !targetPanel.classList.contains("hidden");
+
+      closeFolders();
+      notePanel.classList.add("hidden");
+      settingsPanel.classList.add("hidden");
+      startMenu.classList.remove("open");
+      hideSearchSuggestions();
+
+      if (targetPanel && !isOpen) {
+        targetPanel.classList.remove("hidden");
+      }
+
+      syncActiveStates();
+    }
+
+    function toggleSettings() {
+      const isOpen = !settingsPanel.classList.contains("hidden");
+      closeFolders();
+      notePanel.classList.add("hidden");
+      startMenu.classList.add("open");
+      hideSearchSuggestions();
+      settingsPanel.classList.toggle("hidden", isOpen);
+
+      if (isOpen) {
+        shortcutError.textContent = "";
+      } else {
+        shortcutName.focus();
+      }
+
+      syncActiveStates();
     }
 
     function syncActiveStates() {
       const notesOpen = !notePanel.classList.contains("hidden");
-      openNotesButton.classList.toggle("active", notesOpen);
-      openNotesButton.setAttribute("aria-label", notesOpen ? "Close notes" : "Open notes");
-      startButton.classList.toggle("active", startMenu.classList.contains("open"));
+      const menuOpen = startMenu.classList.contains("open");
+      const openFolderName = getOpenFolderName();
+      const settingsOpen = !settingsPanel.classList.contains("hidden");
+
+      noteToggleButtons.forEach((button) => {
+        button.classList.toggle("active", notesOpen);
+        button.setAttribute("aria-label", notesOpen ? "Close notes" : "Open notes");
+        button.setAttribute("aria-expanded", String(notesOpen));
+      });
+
+      folderToggleButtons.forEach((button) => {
+        const isOpen = button.dataset.folder === openFolderName;
+        button.classList.toggle("active", isOpen);
+        button.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      startButton.classList.toggle("active", menuOpen);
+      startButton.setAttribute("aria-expanded", String(menuOpen));
+      startButton.setAttribute("aria-label", menuOpen ? "Close menu" : "Open menu");
+      startMenu.classList.toggle("settings-open", settingsOpen);
+
+      settingsToggleButton.classList.toggle("active", settingsOpen);
+      settingsToggleButton.setAttribute("aria-expanded", String(settingsOpen));
+      settingsToggleButton.setAttribute("aria-label", settingsOpen ? "Close custom shortcuts" : "Open custom shortcuts");
     }
 
     function toggleStartMenu() {
+      closeFolders();
+      settingsPanel.classList.add("hidden");
       startMenu.classList.toggle("open");
       syncActiveStates();
     }
 
     function toggleNotes() {
       const isHidden = notePanel.classList.toggle("hidden");
+      closeFolders();
+      settingsPanel.classList.add("hidden");
       startMenu.classList.remove("open");
       if (!isHidden) {
-        document.getElementById("notes").focus();
+        if (currentNoteMode === "write") {
+          notesInput.focus();
+        }
       }
       syncActiveStates();
     }
@@ -1225,7 +2365,34 @@
     function closeOpenPanels() {
       notePanel.classList.add("hidden");
       startMenu.classList.remove("open");
+      closeFolders();
+      settingsPanel.classList.add("hidden");
+      hideSearchSuggestions();
       syncActiveStates();
+    }
+
+    function handleSearchKeys(event) {
+      if (searchSuggestions.hidden && !["ArrowDown", "ArrowUp"].includes(event.key)) return;
+
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        if (searchSuggestions.hidden) renderSearchSuggestions();
+        setActiveSuggestion(Math.min(activeSuggestionIndex + 1, currentSuggestions.length - 1));
+      }
+
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+        setActiveSuggestion(Math.max(activeSuggestionIndex - 1, -1));
+      }
+
+      if (event.key === "Enter" && activeSuggestionIndex >= 0) {
+        event.preventDefault();
+        runSuggestion(activeSuggestionIndex);
+      }
+
+      if (event.key === "Escape") {
+        hideSearchSuggestions();
+      }
     }
 
     function handleShortcuts(event) {
@@ -1241,7 +2408,7 @@
 
       if (event.key === "/") {
         event.preventDefault();
-        document.getElementById("searchInput").focus();
+        searchInput.focus();
       }
 
       if (event.key.toLowerCase() === "n") {
@@ -1252,10 +2419,54 @@
 
     loadNotes();
     loadTheme();
+    renderCustomShortcuts();
+    updateClock();
+    setInterval(updateClock, 1000);
     syncActiveStates();
-    document.getElementById("searchForm").addEventListener("submit", handleSearch);
+    searchForm.addEventListener("submit", handleSearch);
+    searchInput.addEventListener("input", renderSearchSuggestions);
+    searchInput.addEventListener("focus", renderSearchSuggestions);
+    searchInput.addEventListener("keydown", handleSearchKeys);
     document.getElementById("themeToggle").addEventListener("click", toggleTheme);
-    openNotesButton.addEventListener("click", toggleNotes);
+    shortcutForm.addEventListener("submit", handleShortcutSubmit);
+    settingsToggleButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      toggleSettings();
+    });
+    closeSettingsButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      closeSettings();
+    });
+    settingsPanel.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+    noteModeButtons.forEach((button) => {
+      button.addEventListener("click", () => setNoteMode(button.dataset.noteMode));
+    });
+    noteToggleButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        toggleNotes();
+      });
+    });
+    folderToggleButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        toggleFolder(button.dataset.folder);
+      });
+    });
+    folderCloseButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        closeFolders();
+        syncActiveStates();
+      });
+    });
+    folderPanels.forEach((panel) => {
+      panel.addEventListener("click", (event) => {
+        event.stopPropagation();
+      });
+    });
     closeNotesButton.addEventListener("click", closeNotes);
 
     startButton.addEventListener("click", (event) => {
@@ -1267,8 +2478,13 @@
       event.stopPropagation();
     });
 
-    document.addEventListener("click", () => {
+    document.addEventListener("click", (event) => {
       startMenu.classList.remove("open");
+      closeFolders();
+      settingsPanel.classList.add("hidden");
+      if (!searchForm.contains(event.target)) {
+        hideSearchSuggestions();
+      }
       syncActiveStates();
     });
 
