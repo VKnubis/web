@@ -1875,6 +1875,7 @@
         const history = JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY) || "[]");
         return Array.isArray(history) ? history.filter((item) => typeof item === "string") : [];
       } catch (error) {
+        console.warn("Failed to read search history from localStorage:", error);
         return [];
       }
     }
@@ -1889,7 +1890,11 @@
         ...getSearchHistory().filter((item) => item.toLowerCase() !== lower)
       ].slice(0, SEARCH_HISTORY_LIMIT);
 
-      localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(nextHistory));
+      try {
+        localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(nextHistory));
+      } catch (error) {
+        console.warn("Failed to save search history (storage may be full):", error);
+      }
     }
 
     function getCustomShortcuts() {
@@ -1897,12 +1902,18 @@
         const shortcuts = JSON.parse(localStorage.getItem(CUSTOM_SHORTCUTS_KEY) || "[]");
         return Array.isArray(shortcuts) ? shortcuts.filter((shortcut) => shortcut && shortcut.name && shortcut.url) : [];
       } catch (error) {
+        console.warn("Failed to read custom shortcuts from localStorage:", error);
         return [];
       }
     }
 
     function saveCustomShortcuts(shortcuts) {
-      localStorage.setItem(CUSTOM_SHORTCUTS_KEY, JSON.stringify(shortcuts));
+      try {
+        localStorage.setItem(CUSTOM_SHORTCUTS_KEY, JSON.stringify(shortcuts));
+      } catch (error) {
+        console.warn("Failed to save custom shortcuts (storage may be full):", error);
+        throw new Error("Could not save shortcut — storage is full. Try removing unused shortcuts.");
+      }
     }
 
     function normalizeUrl(value) {
@@ -2019,7 +2030,8 @@
         shortcutForm.reset();
         renderCustomShortcuts();
       } catch (error) {
-        shortcutError.textContent = error.message;
+        shortcutError.textContent = error.message || "Something went wrong while adding the shortcut.";
+        console.error("Shortcut creation failed:", error);
       }
     }
 
@@ -2236,16 +2248,30 @@
     }
 
     function loadNotes() {
-      notesInput.value = localStorage.getItem("homepage-notes") || "";
+      try {
+        notesInput.value = localStorage.getItem("homepage-notes") || "";
+      } catch (error) {
+        console.warn("Failed to load notes from localStorage:", error);
+        notesInput.value = "";
+      }
       renderNotesPreview();
       notesInput.addEventListener("input", () => {
-        localStorage.setItem("homepage-notes", notesInput.value);
+        try {
+          localStorage.setItem("homepage-notes", notesInput.value);
+        } catch (error) {
+          console.warn("Failed to save notes (storage may be full):", error);
+        }
         renderNotesPreview();
       });
     }
 
     function loadTheme() {
-      const theme = localStorage.getItem("homepage-theme") || "default";
+      let theme = "default";
+      try {
+        theme = localStorage.getItem("homepage-theme") || "default";
+      } catch (error) {
+        console.warn("Failed to read theme from localStorage:", error);
+      }
       document.body.classList.toggle("theme-oled-friendly", theme === "oled-friendly");
       document.body.classList.toggle("theme-blue-night", theme === "blue-night");
       const toggle = document.getElementById("themeToggle");
@@ -2255,9 +2281,18 @@
     }
 
     function toggleTheme() {
-      const currentTheme = localStorage.getItem("homepage-theme") || "default";
+      let currentTheme = "default";
+      try {
+        currentTheme = localStorage.getItem("homepage-theme") || "default";
+      } catch (error) {
+        console.warn("Failed to read current theme:", error);
+      }
       const nextTheme = THEMES[(THEMES.indexOf(currentTheme) + 1) % THEMES.length] || "default";
-      localStorage.setItem("homepage-theme", nextTheme);
+      try {
+        localStorage.setItem("homepage-theme", nextTheme);
+      } catch (error) {
+        console.warn("Failed to save theme preference:", error);
+      }
       loadTheme();
     }
 
@@ -2427,7 +2462,10 @@
     searchInput.addEventListener("input", renderSearchSuggestions);
     searchInput.addEventListener("focus", renderSearchSuggestions);
     searchInput.addEventListener("keydown", handleSearchKeys);
-    document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+    const themeToggleEl = document.getElementById("themeToggle");
+    if (themeToggleEl) {
+      themeToggleEl.addEventListener("click", toggleTheme);
+    }
     shortcutForm.addEventListener("submit", handleShortcutSubmit);
     settingsToggleButton.addEventListener("click", (event) => {
       event.stopPropagation();
