@@ -619,10 +619,18 @@
       color: var(--xp-muted);
     }
 
+    .floating-panel {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      background: rgba(7, 9, 11, 0.88);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.44);
+      backdrop-filter: blur(18px);
+    }
+
     .note-panel {
       width: clamp(300px, 32vw, 540px);
       padding: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-color: rgba(255, 255, 255, 0.24);
       border-radius: 8px;
       background: rgba(8, 10, 12, 0.82);
       box-shadow: 0 18px 34px rgba(0, 0, 0, 0.28);
@@ -633,11 +641,16 @@
       display: none;
     }
 
-    .note-panel-head {
+    .panel-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      color: #f7f7f4;
+      font-weight: 800;
+    }
+
+    .note-panel-head {
       margin-bottom: 10px;
       color: #f7f7f5;
       font-size: 13px;
@@ -679,20 +692,26 @@
       background: url("wirte.png") center center / contain no-repeat;
     }
 
-    .note-close {
+    .icon-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       width: 28px;
       height: 28px;
       padding: 0;
-      border: 2px solid #26292f;
+      border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #f7f7f4;
+      box-shadow: none;
+    }
+
+    .note-close {
+      border: 2px solid #26292f;
       background: #ffffff;
       color: #111;
       font-size: 18px;
       line-height: 1;
-      box-shadow: none;
     }
 
     .note-close:hover {
@@ -775,23 +794,7 @@
     }
 
     .settings-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
       margin-bottom: 12px;
-      font-weight: 800;
-    }
-
-    .settings-close {
-      width: 28px;
-      height: 28px;
-      padding: 0;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.08);
-      color: #f7f7f4;
-      box-shadow: none;
     }
 
     .shortcut-form {
@@ -898,8 +901,7 @@
       min-width: 0;
     }
 
-    .shortcut-meta strong,
-    .shortcut-meta small {
+    .text-truncate {
       display: block;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -919,12 +921,7 @@
     .shortcut-remove {
       width: 30px;
       height: 30px;
-      padding: 0;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.08);
-      color: #f7f7f4;
-      box-shadow: none;
+      border-color: rgba(255, 255, 255, 0.14);
     }
 
     .folder-panel {
@@ -933,11 +930,6 @@
       bottom: 86px;
       width: min(420px, calc(100vw - 24px));
       padding: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 16px;
-      background: rgba(7, 9, 11, 0.88);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.44);
-      backdrop-filter: blur(18px);
       transform: translateX(-50%);
       z-index: 8;
     }
@@ -947,24 +939,7 @@
     }
 
     .folder-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
       padding: 4px 4px 12px;
-      color: #f7f7f4;
-      font-weight: 800;
-    }
-
-    .folder-close {
-      width: 28px;
-      height: 28px;
-      padding: 0;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.08);
-      color: #f7f7f4;
-      box-shadow: none;
     }
 
     .folder-grid {
@@ -1032,14 +1007,6 @@
       min-width: 0;
     }
 
-    .folder-label strong,
-    .folder-label small {
-      display: block;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
     .folder-label strong {
       font-size: 14px;
     }
@@ -1056,13 +1023,8 @@
       bottom: 86px;
       width: min(390px, calc(100vw - 24px));
       max-height: min(760px, calc(100vh - 112px));
-      border-radius: 16px;
       overflow: hidden;
       transform: translateX(-50%);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.44);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(7, 9, 11, 0.88);
-      backdrop-filter: blur(18px);
       display: none;
       z-index: 8;
     }
@@ -1381,10 +1343,6 @@
     }
 
     .task-btn[data-note-toggle]::before {
-      content: "";
-      display: block;
-      width: 34px;
-      height: 34px;
       background: url("wirte.png") center center / 70% 70% no-repeat;
     }
 
@@ -1399,27 +1357,25 @@
       background: linear-gradient(135deg, #6d4aff, #8f79ff);
     }
 
-    .task-btn[href*="github.com"]::before {
-      content: "";
-      display: block;
-      width: 34px;
-      height: 34px;
-      background: url("github.png") center center / 70% 70% no-repeat;
-    }
-
-    .task-btn[href*="youtube"]::before {
-      content: "";
-      display: block;
-      width: 34px;
-      height: 34px;
-      background: url("youtube.png") center center / 70% 70% no-repeat;
-    }
-
+    .task-btn[data-note-toggle]::before,
+    .task-btn[href*="github.com"]::before,
+    .task-btn[href*="youtube"]::before,
     .task-btn[href*="chatgpt.com"]::before {
       content: "";
       display: block;
       width: 34px;
       height: 34px;
+    }
+
+    .task-btn[href*="github.com"]::before {
+      background: url("github.png") center center / 70% 70% no-repeat;
+    }
+
+    .task-btn[href*="youtube"]::before {
+      background: url("youtube.png") center center / 70% 70% no-repeat;
+    }
+
+    .task-btn[href*="chatgpt.com"]::before {
       background: url("chatgpt.png") center center / 70% 70% no-repeat;
     }
 
@@ -1645,13 +1601,13 @@
         <input id="searchInput" type="text" placeholder="Search Google or type a website" autocomplete="off" aria-autocomplete="list" aria-controls="searchSuggestions" aria-expanded="false">
         <div class="search-suggestions" id="searchSuggestions" role="listbox" aria-label="Search suggestions" hidden></div>
       </form>
-      <div class="note-panel hidden" id="notePanel">
-        <div class="note-panel-head">
+      <div class="note-panel floating-panel hidden" id="notePanel">
+        <div class="note-panel-head panel-header">
           <span class="note-title">Notes</span>
           <div class="note-actions">
             <button class="note-mode active" type="button" data-note-mode="write">Write</button>
             <button class="note-mode" type="button" data-note-mode="preview">Preview</button>
-            <button class="note-close" id="closeNotes" type="button" aria-label="Close notes">x</button>
+            <button class="note-close icon-btn" id="closeNotes" type="button" aria-label="Close notes">x</button>
           </div>
         </div>
         <textarea id="notes" aria-label="Homepage notes" placeholder="Write reminders, plans, or anything you want to keep on your homepage."></textarea>
@@ -1661,10 +1617,10 @@
     </div>
   </main>
 
-  <section class="folder-panel hidden" id="googleFolder" data-folder-panel="google" aria-label="Google stuff">
-    <div class="folder-head">
+  <section class="folder-panel floating-panel hidden" id="googleFolder" data-folder-panel="google" aria-label="Google stuff">
+    <div class="folder-head panel-header">
       <span>Google Stuff</span>
-      <button class="folder-close" type="button" data-folder-close aria-label="Close Google folder">x</button>
+      <button class="folder-close icon-btn" type="button" data-folder-close aria-label="Close Google folder">x</button>
     </div>
     <div class="folder-grid">
       <a class="folder-link" href="https://www.google.com" target="_blank" rel="noopener noreferrer">
@@ -1694,10 +1650,10 @@
     </div>
   </section>
 
-  <section class="folder-panel hidden" id="protonFolder" data-folder-panel="proton" aria-label="Proton stuff">
-    <div class="folder-head">
+  <section class="folder-panel floating-panel hidden" id="protonFolder" data-folder-panel="proton" aria-label="Proton stuff">
+    <div class="folder-head panel-header">
       <span>Proton Stuff</span>
-      <button class="folder-close" type="button" data-folder-close aria-label="Close Proton folder">x</button>
+      <button class="folder-close icon-btn" type="button" data-folder-close aria-label="Close Proton folder">x</button>
     </div>
     <div class="folder-grid">
       <a class="folder-link" href="https://mail.proton.me" target="_blank" rel="noopener noreferrer">
@@ -1727,7 +1683,7 @@
     </div>
   </section>
 
-  <div class="start-menu" id="startMenu" aria-label="Quick actions">
+  <div class="start-menu floating-panel" id="startMenu" aria-label="Quick actions">
     <div class="start-top">
       <div class="start-avatar" aria-hidden="true"></div>
       <div>
@@ -1762,9 +1718,9 @@
           <span class="menu-copy"><span>Custom Shortcuts</span><small>Add your own dock buttons</small></span>
         </button>
         <section class="settings-panel hidden" id="settingsPanel" aria-label="Shortcut settings">
-          <div class="settings-head">
+          <div class="settings-head panel-header">
             <span>Custom Shortcuts</span>
-            <button class="settings-close" id="closeSettings" type="button" aria-label="Close settings">x</button>
+            <button class="settings-close icon-btn" id="closeSettings" type="button" aria-label="Close settings">x</button>
           </div>
           <form class="shortcut-form" id="shortcutForm">
             <label class="shortcut-field">
@@ -1870,14 +1826,22 @@
       return /^https?:\/\//i.test(value) || /^[\w-]+(\.[\w-]+)+([/?#].*)?$/i.test(value);
     }
 
-    function getSearchHistory() {
+    function readLocalStorageArray(key, filterFn) {
       try {
-        const history = JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY) || "[]");
-        return Array.isArray(history) ? history.filter((item) => typeof item === "string") : [];
+        const data = JSON.parse(localStorage.getItem(key) || "[]");
+        return Array.isArray(data) ? data.filter(filterFn) : [];
       } catch (error) {
-        console.warn("Failed to read search history from localStorage:", error);
+        console.warn(`Failed to read ${key} from localStorage:`, error);
         return [];
       }
+    }
+
+    function writeLocalStorageArray(key, data) {
+      localStorage.setItem(key, JSON.stringify(data));
+    }
+
+    function getSearchHistory() {
+      return readLocalStorageArray(SEARCH_HISTORY_KEY, (item) => typeof item === "string");
     }
 
     function saveSearchHistory(query) {
@@ -1891,28 +1855,22 @@
       ].slice(0, SEARCH_HISTORY_LIMIT);
 
       try {
-        localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(nextHistory));
+        writeLocalStorageArray(SEARCH_HISTORY_KEY, nextHistory);
       } catch (error) {
         console.warn("Failed to save search history (storage may be full):", error);
       }
     }
 
     function getCustomShortcuts() {
-      try {
-        const shortcuts = JSON.parse(localStorage.getItem(CUSTOM_SHORTCUTS_KEY) || "[]");
-        return Array.isArray(shortcuts) ? shortcuts.filter((shortcut) => shortcut && shortcut.name && shortcut.url) : [];
-      } catch (error) {
-        console.warn("Failed to read custom shortcuts from localStorage:", error);
-        return [];
-      }
+      return readLocalStorageArray(CUSTOM_SHORTCUTS_KEY, (shortcut) => shortcut && shortcut.name && shortcut.url);
     }
 
     function saveCustomShortcuts(shortcuts) {
       try {
-        localStorage.setItem(CUSTOM_SHORTCUTS_KEY, JSON.stringify(shortcuts));
+        writeLocalStorageArray(CUSTOM_SHORTCUTS_KEY, shortcuts);
       } catch (error) {
         console.warn("Failed to save custom shortcuts (storage may be full):", error);
-        throw new Error("Could not save shortcut — storage is full. Try removing unused shortcuts.");
+        throw new Error("Could not save shortcut \u2014 storage is full. Try removing unused shortcuts.");
       }
     }
 
@@ -1982,7 +1940,7 @@
         meta.innerHTML = `<strong>${escapeHtml(shortcut.name)}</strong><small>${escapeHtml(shortcut.url)}</small>`;
 
         const removeButton = document.createElement("button");
-        removeButton.className = "shortcut-remove";
+        removeButton.className = "shortcut-remove icon-btn";
         removeButton.type = "button";
         removeButton.textContent = "x";
         removeButton.setAttribute("aria-label", `Remove ${shortcut.name}`);
@@ -2047,7 +2005,7 @@
       }
 
       if (looksLikeUrl(clean)) {
-        return /^https?:\/\//i.test(clean) ? clean : `https://${clean}`;
+        return normalizeUrl(clean);
       }
 
       return `https://www.google.com/search?q=${encodeURIComponent(clean)}`;
@@ -2296,13 +2254,12 @@
       loadTheme();
     }
 
-    function closeFolders() {
+    function dismissAllPanels() {
       folderPanels.forEach((panel) => panel.classList.add("hidden"));
-    }
-
-    function closeSettings() {
+      notePanel.classList.add("hidden");
       settingsPanel.classList.add("hidden");
-      syncActiveStates();
+      startMenu.classList.remove("open");
+      hideSearchSuggestions();
     }
 
     function getOpenFolderName() {
@@ -2314,11 +2271,7 @@
       const targetPanel = document.querySelector(`[data-folder-panel="${folderName}"]`);
       const isOpen = targetPanel && !targetPanel.classList.contains("hidden");
 
-      closeFolders();
-      notePanel.classList.add("hidden");
-      settingsPanel.classList.add("hidden");
-      startMenu.classList.remove("open");
-      hideSearchSuggestions();
+      dismissAllPanels();
 
       if (targetPanel && !isOpen) {
         targetPanel.classList.remove("hidden");
@@ -2329,10 +2282,8 @@
 
     function toggleSettings() {
       const isOpen = !settingsPanel.classList.contains("hidden");
-      closeFolders();
-      notePanel.classList.add("hidden");
+      dismissAllPanels();
       startMenu.classList.add("open");
-      hideSearchSuggestions();
       settingsPanel.classList.toggle("hidden", isOpen);
 
       if (isOpen) {
@@ -2373,18 +2324,16 @@
     }
 
     function toggleStartMenu() {
-      closeFolders();
-      settingsPanel.classList.add("hidden");
+      dismissAllPanels();
       startMenu.classList.toggle("open");
       syncActiveStates();
     }
 
     function toggleNotes() {
-      const isHidden = notePanel.classList.toggle("hidden");
-      closeFolders();
-      settingsPanel.classList.add("hidden");
-      startMenu.classList.remove("open");
-      if (!isHidden) {
+      const wasHidden = notePanel.classList.contains("hidden");
+      dismissAllPanels();
+      if (wasHidden) {
+        notePanel.classList.remove("hidden");
         if (currentNoteMode === "write") {
           notesInput.focus();
         }
@@ -2394,15 +2343,6 @@
 
     function closeNotes() {
       notePanel.classList.add("hidden");
-      syncActiveStates();
-    }
-
-    function closeOpenPanels() {
-      notePanel.classList.add("hidden");
-      startMenu.classList.remove("open");
-      closeFolders();
-      settingsPanel.classList.add("hidden");
-      hideSearchSuggestions();
       syncActiveStates();
     }
 
@@ -2435,7 +2375,8 @@
       const isTyping = target.matches("input, textarea");
 
       if (event.key === "Escape") {
-        closeOpenPanels();
+        dismissAllPanels();
+        syncActiveStates();
         return;
       }
 
@@ -2473,7 +2414,8 @@
     });
     closeSettingsButton.addEventListener("click", (event) => {
       event.stopPropagation();
-      closeSettings();
+      settingsPanel.classList.add("hidden");
+      syncActiveStates();
     });
     settingsPanel.addEventListener("click", (event) => {
       event.stopPropagation();
@@ -2496,7 +2438,7 @@
     folderCloseButtons.forEach((button) => {
       button.addEventListener("click", (event) => {
         event.stopPropagation();
-        closeFolders();
+        folderPanels.forEach((panel) => panel.classList.add("hidden"));
         syncActiveStates();
       });
     });
@@ -2517,11 +2459,9 @@
     });
 
     document.addEventListener("click", (event) => {
-      startMenu.classList.remove("open");
-      closeFolders();
-      settingsPanel.classList.add("hidden");
-      if (!searchForm.contains(event.target)) {
-        hideSearchSuggestions();
+      dismissAllPanels();
+      if (searchForm.contains(event.target)) {
+        renderSearchSuggestions();
       }
       syncActiveStates();
     });
