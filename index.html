@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; font-src 'self'; form-action 'none'; base-uri 'none';">
   <title>Life / Death Home</title>
   <style>
     :root {
@@ -1892,10 +1893,21 @@
       localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(nextHistory));
     }
 
+    function isSafeUrl(value) {
+      try {
+        const parsed = new URL(value);
+        return /^https?:$/.test(parsed.protocol);
+      } catch (error) {
+        return false;
+      }
+    }
+
     function getCustomShortcuts() {
       try {
         const shortcuts = JSON.parse(localStorage.getItem(CUSTOM_SHORTCUTS_KEY) || "[]");
-        return Array.isArray(shortcuts) ? shortcuts.filter((shortcut) => shortcut && shortcut.name && shortcut.url) : [];
+        return Array.isArray(shortcuts)
+          ? shortcuts.filter((shortcut) => shortcut && shortcut.name && shortcut.url && isSafeUrl(shortcut.url))
+          : [];
       } catch (error) {
         return [];
       }
@@ -1915,9 +1927,14 @@
       return (shortcut.iconText || shortcut.name || "?").trim().slice(0, 2).toUpperCase();
     }
 
+    function isValidIconImage(value) {
+      return typeof value === "string" && /^data:image\/(png|jpeg|webp|svg\+xml);base64,/i.test(value);
+    }
+
     function applyShortcutIcon(element, shortcut) {
-      element.textContent = shortcut.iconImage ? "" : getShortcutIconText(shortcut);
-      element.style.backgroundImage = shortcut.iconImage ? `url("${shortcut.iconImage}")` : "";
+      const safeImage = isValidIconImage(shortcut.iconImage) ? shortcut.iconImage : "";
+      element.textContent = safeImage ? "" : getShortcutIconText(shortcut);
+      element.style.backgroundImage = safeImage ? `url("${safeImage}")` : "";
     }
 
     function readIconFile(file) {
@@ -1999,7 +2016,11 @@
       }
 
       try {
-        new URL(url);
+        const parsed = new URL(url);
+        if (!/^https?:$/.test(parsed.protocol)) {
+          shortcutError.textContent = "Only http and https URLs are allowed.";
+          return;
+        }
       } catch (error) {
         shortcutError.textContent = "Website needs to be a valid URL.";
         return;
