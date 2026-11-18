@@ -216,8 +216,7 @@ function renderCustomShortcuts() {
     const dockLink = document.createElement("a");
     dockLink.className = "task-btn custom-shortcut";
     dockLink.href = shortcut.url;
-    dockLink.target = "_blank";
-    dockLink.rel = "noopener noreferrer";
+    dockLink.rel = "noreferrer";
     dockLink.title = shortcut.name;
     dockLink.setAttribute("aria-label", `Open ${shortcut.name}`);
 
@@ -337,7 +336,7 @@ function buildDynamicFolderPanel(folder) {
   section.setAttribute("aria-label", `${folder.name} folder`);
 
   const linksHtml = folder.links.map((link) => `
-    <a class="folder-link" href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">
+    <a class="folder-link" href="${escapeHtml(link.url)}" rel="noreferrer">
       <span class="folder-icon" aria-hidden="true">${escapeHtml((link.label || "?").trim().slice(0, 1).toUpperCase())}</span>
       <span class="folder-label"><strong>${escapeHtml(link.label || link.url)}</strong><small>${escapeHtml(link.url)}</small></span>
     </a>
@@ -553,7 +552,10 @@ function runSearch(query, target = buildSearchTarget(query)) {
   if (!clean) return;
   saveSearchHistory(clean);
   hideSearchSuggestions();
-  window.open(target, "_blank", "noopener,noreferrer");
+  const link = document.createElement("a");
+  link.href = target;
+  link.rel = "noreferrer";
+  link.click();
 }
 
 function runSuggestion(index) {
@@ -647,7 +649,7 @@ function renderMarkdownLine(line) {
 function inlineMarkdown(rawLine) {
   let text = escapeHtml(rawLine);
   text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (match, label, url) => {
-    return `<a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+    return `<a href="${url}" rel="noreferrer">${label}</a>`;
   });
   text = text.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   text = text.replace(/(^|[^*])\*([^*]+)\*(?!\*)/g, "$1<em>$2</em>");
