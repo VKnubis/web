@@ -87,8 +87,13 @@
   <main class="desktop">
     <div class="desktop-shell">
       <form id="searchForm" class="search-form" role="search">
-        <label class="sr-only" for="searchInput">Search Google or type a website</label>
-        <input id="searchInput" type="text" placeholder="Search Google or type a website" autocomplete="off" aria-autocomplete="list" aria-controls="searchSuggestions" aria-expanded="false">
+        <label class="sr-only" for="searchInput">Search or type a website</label>
+        <input id="searchInput" type="text" placeholder="Search or type a website" autocomplete="off" aria-autocomplete="list" aria-controls="searchSuggestions" aria-expanded="false">
+        <select class="search-engine" id="searchEngine" aria-label="Search engine">
+          <option value="google">Google</option>
+          <option value="youtube">YouTube</option>
+          <option value="github">GitHub</option>
+        </select>
         <div class="search-suggestions" id="searchSuggestions" role="listbox" aria-label="Search suggestions" hidden></div>
       </form>
       <div class="note-panel hidden" id="notePanel">
@@ -302,14 +307,14 @@
   <div class="taskbar">
     <div class="task-center">
       <div class="task-buttons">
-        <button class="task-btn" type="button" title="Google Stuff" aria-label="Open Google stuff" aria-controls="googleFolder" aria-expanded="false" data-folder-toggle data-folder="google"></button>
-        <button class="task-btn" id="openNotes" type="button" title="Notes" aria-label="Open notes" aria-controls="notePanel" aria-expanded="false" data-note-toggle></button>
-        <button class="task-btn" type="button" title="Proton Stuff" aria-label="Open Proton stuff" aria-controls="protonFolder" aria-expanded="false" data-folder-toggle data-folder="proton"></button>
+        <button class="task-btn" type="button" data-label="Google folders" aria-label="Open Google stuff" aria-controls="googleFolder" aria-expanded="false" data-folder-toggle data-folder="google"></button>
+        <button class="task-btn" id="openNotes" type="button" data-label="Notes" aria-label="Open notes" aria-controls="notePanel" aria-expanded="false" data-note-toggle></button>
+        <button class="task-btn" type="button" data-label="Proton folders" aria-label="Open Proton stuff" aria-controls="protonFolder" aria-expanded="false" data-folder-toggle data-folder="proton"></button>
       </div>
-      <button class="launcher-btn" id="startButton" type="button" aria-label="Open menu" aria-controls="startMenu" aria-expanded="false"></button>
+      <button class="launcher-btn" data-label="Start menu" id="startButton" type="button" aria-label="Open menu" aria-controls="startMenu" aria-expanded="false"></button>
       <div class="task-buttons">
-        <a class="task-btn" href="https://github.com" rel="noreferrer" title="Code" aria-label="Open GitHub"></a>
-        <a class="task-btn" href="https://chatgpt.com" rel="noreferrer" title="ChatGPT" aria-label="Open ChatGPT"></a>
+        <a class="task-btn" href="https://github.com" rel="noreferrer" data-label="GitHub" aria-label="Open GitHub"></a>
+        <a class="task-btn" href="https://chatgpt.com" rel="noreferrer" data-label="ChatGPT" aria-label="Open ChatGPT"></a>
       </div>
       <div class="custom-folders" id="customFolders" aria-label="Custom folders"></div>
       <div class="custom-shortcuts" id="customShortcuts" aria-label="Custom shortcuts"></div>

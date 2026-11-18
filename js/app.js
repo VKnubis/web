@@ -5,6 +5,7 @@ const notePanel = document.getElementById("notePanel");
 const noteToggleButtons = document.querySelectorAll("[data-note-toggle]");
 const closeNotesButton = document.getElementById("closeNotes");
 const searchForm = document.getElementById("searchForm");
+const searchEngine = document.getElementById("searchEngine");
 const searchInput = document.getElementById("searchInput");
 const searchSuggestions = document.getElementById("searchSuggestions");
 const clockTime = document.getElementById("clockTime");
@@ -446,19 +447,18 @@ function handleFolderGroupSubmit(event) {
 }
 
 // ===================== Search =====================
-function buildSearchTarget(query, type = "default") {
-  const clean = query.trim();
+const SEARCH_ENGINES = {
+  google: { label: "Google", url: "https://www.google.com/search?q=", kind: "search" },
+  youtube: { label: "YouTube", url: "https://www.youtube.com/results?search_query=", kind: "youtube" },
+  github: { label: "GitHub", url: "https://github.com/search?q=", kind: "github" }
+};
 
-  if (type === "youtube") {
-    return `https://www.youtube.com/results?search_query=${encodeURIComponent(clean)}`;
-  }
-  if (type === "github") {
-    return `https://github.com/search?q=${encodeURIComponent(clean)}`;
-  }
+function buildSearchTarget(query, engine = searchEngine.value) {
+  const clean = query.trim();
   if (looksLikeUrl(clean)) {
-    return /^https?:\/\//i.test(clean) ? clean : `https://${clean}`;
+    return normalizeUrl(clean);
   }
-  return `https://www.google.com/search?q=${encodeURIComponent(clean)}`;
+  return SEARCH_ENGINES[engine].url + encodeURIComponent(clean);
 }
 
 function makeSuggestion(kind, title, detail, value, target) {
@@ -468,29 +468,27 @@ function makeSuggestion(kind, title, detail, value, target) {
 function getSearchSuggestions(query) {
   const clean = query.trim();
   const history = getSearchHistory();
+  const recent = (item) => makeSuggestion("history", item, "Recent search", item, buildSearchTarget(item));
 
-  if (!clean) {
-    return history.slice(0, 5).map((item) => makeSuggestion(
-      "history", item, "Recent search", item, buildSearchTarget(item)
-    ));
-  }
+  if (!clean) return history.slice(0, 5).map(recent);
 
   const lower = clean.toLowerCase();
   const historyMatches = history
     .filter((item) => item.toLowerCase().includes(lower) && item.toLowerCase() !== lower)
     .slice(0, 3)
-    .map((item) => makeSuggestion("history", item, "Recent search", item, buildSearchTarget(item)));
+    .map(recent);
 
-  const primarySuggestion = looksLikeUrl(clean)
-    ? makeSuggestion("search", `Open ${clean}`, "Website", clean, buildSearchTarget(clean))
-    : makeSuggestion("search", `Search Google for "${clean}"`, "Google", clean, buildSearchTarget(clean));
+  if (looksLikeUrl(clean)) {
+    return [makeSuggestion("search", `Open ${clean}`, "Website", clean, buildSearchTarget(clean)), ...historyMatches];
+  }
 
-  return [
-    primarySuggestion,
-    ...historyMatches,
-    makeSuggestion("youtube", `Search YouTube for "${clean}"`, "YouTube", clean, buildSearchTarget(clean, "youtube")),
-    makeSuggestion("github", `Search GitHub for "${clean}"`, "GitHub", clean, buildSearchTarget(clean, "github"))
-  ].slice(0, 6);
+  const engineSuggestion = (key) => {
+    const engine = SEARCH_ENGINES[key];
+    return makeSuggestion(engine.kind, `Search ${engine.label} for "${clean}"`, engine.label, clean, buildSearchTarget(clean, key));
+  };
+  const selected = searchEngine.value;
+  const alternatives = Object.keys(SEARCH_ENGINES).filter((key) => key !== selected).map(engineSuggestion);
+  return [engineSuggestion(selected), ...historyMatches, ...alternatives];
 }
 
 function hideSearchSuggestions() {
@@ -1195,7 +1193,7 @@ function handleSearchKeys(event) {
 
 function handleShortcuts(event) {
   const target = event.target;
-  const isTyping = target.matches("input, textarea");
+  const isTyping = target.matches("input, textarea, select");
 
   if (event.key === "Escape") {
     closeOpenPanels();
@@ -1231,6 +1229,7 @@ syncActiveStates();
 
 searchForm.addEventListener("submit", handleSearch);
 searchInput.addEventListener("input", renderSearchSuggestions);
+searchEngine.addEventListener("change", renderSearchSuggestions);
 searchInput.addEventListener("focus", renderSearchSuggestions);
 searchInput.addEventListener("keydown", handleSearchKeys);
 
