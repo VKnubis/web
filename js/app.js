@@ -1281,8 +1281,6 @@ startButton.addEventListener("click", (event) => {
   toggleStartMenu();
 });
 
-startMenu.addEventListener("click", (event) => event.stopPropagation());
-
 document.addEventListener("keydown", handleShortcuts);
 
 // Delegated click handling covers both static (Google/Proton) and dynamically
@@ -1303,8 +1301,7 @@ document.addEventListener("click", (event) => {
     return;
   }
 
-  if (event.target.closest("[data-folder-panel]")) {
-    event.stopPropagation();
+  if (startMenu.contains(event.target) || event.target.closest("[data-folder-panel]")) {
     return;
   }
 
